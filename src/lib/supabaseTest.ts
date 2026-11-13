@@ -1,24 +1,20 @@
 import { supabase } from './supabaseClient'
 
-// TEMPORARY security checks, run as an anonymous visitor.
+// TEMPORARY check, run as an anonymous visitor.
 // Delete this file and its import in main.tsx after step 3.3.
 async function run() {
-  const read = await supabase.from('categories').select('*')
-  console.log('1. read categories (expect NO error and an empty list):', read)
+  const categories = await supabase.from('categories').select('slug')
+  console.log('categories (expect 6):', categories.data?.length, categories.error?.message)
 
-  const write = await supabase.from('categories').insert({ name: 'Hack', slug: 'hack' })
-  console.log('2. insert category (expect a permission error):', write.error?.message)
+  const destinations = await supabase
+    .from('destinations')
+    .select('slug, is_featured, is_hidden_gem')
+  console.log('destinations (expect 20):', destinations.data?.length, destinations.error?.message)
+  console.log('featured (expect 6):', destinations.data?.filter((d) => d.is_featured).length)
+  console.log('hidden gems (expect 4):', destinations.data?.filter((d) => d.is_hidden_gem).length)
 
-  const feedbackRead = await supabase.from('feedback').select('*')
-  console.log('3. read feedback (expect a permission error):', feedbackRead.error?.message)
-
-  const feedbackBad = await supabase
-    .from('feedback')
-    .insert({ name: 'Test', email: 'not-an-email', subject: 'Hi', message: 'short' })
-  console.log('4. invalid feedback (expect a constraint error):', feedbackBad.error?.message)
-
-  const profiles = await supabase.from('profiles').select('*')
-  console.log('5. read profiles (expect a permission error):', profiles.error?.message)
+  const posts = await supabase.from('blog_posts').select('slug, status')
+  console.log('posts visible (expect 6):', posts.data?.length, posts.error?.message)
 }
 
 void run()
