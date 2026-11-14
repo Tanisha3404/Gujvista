@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
-import './lib/supabaseTest'
 
 // BASE_URL is '/' in dev and '/gujvista/' in the production build (see vite.config.ts).
 // The router needs it so links work under a GitHub Pages sub-path.
