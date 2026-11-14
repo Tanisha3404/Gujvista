@@ -1,5 +1,6 @@
 import { MapPin } from 'lucide-react'
 import { ButtonLink } from '../ui/Button'
+import FavouriteButton from './FavouriteButton'
 import type { Destination } from '../../types/destination'
 
 interface DestinationCardProps {
@@ -7,11 +8,11 @@ interface DestinationCardProps {
 }
 
 export default function DestinationCard({ destination }: DestinationCardProps) {
-  const { name, slug, district, shortDescription, mainImage } = destination
+  const { id, name, slug, district, shortDescription, mainImage } = destination
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl bg-paper text-ink transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
-      <div className="aspect-[5/4] overflow-hidden">
+      <div className="relative aspect-[5/4] overflow-hidden">
         <img
           src={mainImage}
           alt={name}
@@ -19,6 +20,7 @@ export default function DestinationCard({ destination }: DestinationCardProps) {
           decoding="async"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        <FavouriteButton destinationId={id} destinationName={name} />
       </div>
 
       <div className="flex flex-1 flex-col p-4">

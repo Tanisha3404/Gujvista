@@ -10,6 +10,7 @@ import GuideDetailsPage from '../pages/GuideDetailsPage'
 import LoginPage from '../pages/LoginPage'
 import SignUpPage from '../pages/SignUpPage'
 import ProfilePage from '../pages/ProfilePage'
+import FavouritesPage from '../pages/FavouritesPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import PlaceholderPage from '../pages/PlaceholderPage'
 
@@ -31,6 +32,7 @@ export default function AppRoutes() {
         {/* Pages that need a signed-in user */}
         <Route element={<RequireAuth />}>
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="favourites" element={<FavouritesPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />

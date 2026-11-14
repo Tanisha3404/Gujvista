@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Menu, User, X } from 'lucide-react'
+import { Heart, Menu, User, X } from 'lucide-react'
 import Container from '../ui/Container'
 import { Button, ButtonLink } from '../ui/Button'
 import { useAuth } from '../../hooks/useAuth'
+import { useFavourites } from '../../hooks/useFavourites'
 import { cn } from '../../lib/utils'
 
 const navLinks = [
@@ -17,6 +18,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const closeMenu = () => setOpen(false)
   const { user, profile, loading, signOut } = useAuth()
+  const { favouriteIds } = useFavourites()
   const navigate = useNavigate()
 
   const displayName =
@@ -52,6 +54,14 @@ export default function Navbar() {
     desktopAuth = (
       <>
         <Link
+          to="/favourites"
+          aria-label={`Saved places (${favouriteIds.length})`}
+          className="flex items-center gap-1.5 text-sm font-medium text-white/80 transition-colors hover:text-white"
+        >
+          <Heart size={18} aria-hidden="true" />
+          <span aria-hidden="true">{favouriteIds.length}</span>
+        </Link>
+        <Link
           to="/profile"
           className="flex max-w-[10rem] items-center gap-2 text-sm font-medium text-white/80 transition-colors hover:text-white"
         >
@@ -86,14 +96,19 @@ export default function Navbar() {
     mobileAuth = null
   } else if (user) {
     mobileAuth = (
-      <div className="mt-3 flex gap-3">
-        <ButtonLink to="/profile" variant="outline" className="flex-1" onClick={closeMenu}>
-          {displayName}
-        </ButtonLink>
-        <Button className="flex-1" onClick={handleSignOut}>
-          Log out
-        </Button>
-      </div>
+      <>
+        <NavLink to="/favourites" onClick={closeMenu} className={mobileLinkClass}>
+          Saved places ({favouriteIds.length})
+        </NavLink>
+        <div className="mt-3 flex gap-3">
+          <ButtonLink to="/profile" variant="outline" className="flex-1" onClick={closeMenu}>
+            {displayName}
+          </ButtonLink>
+          <Button className="flex-1" onClick={handleSignOut}>
+            Log out
+          </Button>
+        </div>
+      </>
     )
   } else {
     mobileAuth = (

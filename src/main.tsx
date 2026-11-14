@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import AuthProvider from './context/AuthProvider'
+import FavouritesProvider from './context/FavouritesProvider'
 import './index.css'
 
 // BASE_URL is '/' in dev and '/gujvista/' in the production build (see vite.config.ts).
@@ -12,7 +13,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter basename={basename}>
       <AuthProvider>
-        <App />
+        <FavouritesProvider>
+          <App />
+        </FavouritesProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

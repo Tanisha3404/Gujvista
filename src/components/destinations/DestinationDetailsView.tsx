@@ -4,6 +4,7 @@ import { ArrowLeft, CalendarDays, ExternalLink, Lightbulb, MapPin } from 'lucide
 import Container from '../ui/Container'
 import Skeleton from '../feedback/Skeleton'
 import DestinationCard from './DestinationCard'
+import FavouriteButton from './FavouriteButton'
 import type { DestinationDetails } from '../../services/destinationService'
 
 // The map library is large, so load it only when this page is opened.
@@ -30,6 +31,7 @@ function InfoList({ id, title, items }: { id: string; title: string; items: stri
 export default function DestinationDetailsView({ details }: { details: DestinationDetails }) {
   const { destination, category, nearby, gallery } = details
   const {
+    id,
     name,
     district,
     mainImage,
@@ -69,6 +71,9 @@ export default function DestinationDetailsView({ details }: { details: Destinati
             aria-hidden="true"
             className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"
           />
+          <div className="absolute right-4 top-4 sm:right-6 sm:top-6">
+            <FavouriteButton variant="inline" destinationId={id} destinationName={name} />
+          </div>
           <div className="absolute inset-x-0 bottom-0 p-6 sm:p-10">
             {category && (
               <Link
