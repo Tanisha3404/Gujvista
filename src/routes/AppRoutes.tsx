@@ -1,11 +1,15 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../components/layout/Layout'
+import RequireAuth from '../components/auth/RequireAuth'
 import HomePage from '../pages/HomePage'
 import DestinationsPage from '../pages/DestinationsPage'
 import DestinationDetailsPage from '../pages/DestinationDetailsPage'
 import AboutPage from '../pages/AboutPage'
 import GuidesPage from '../pages/GuidesPage'
 import GuideDetailsPage from '../pages/GuideDetailsPage'
+import LoginPage from '../pages/LoginPage'
+import SignUpPage from '../pages/SignUpPage'
+import ProfilePage from '../pages/ProfilePage'
 import NotFoundPage from '../pages/NotFoundPage'
 import PlaceholderPage from '../pages/PlaceholderPage'
 
@@ -21,8 +25,14 @@ export default function AppRoutes() {
         <Route path="guides/:slug" element={<GuideDetailsPage />} />
         <Route path="planner" element={<PlaceholderPage title="Travel Planner" />} />
         <Route path="contact" element={<PlaceholderPage title="Contact & Feedback" />} />
-        <Route path="login" element={<PlaceholderPage title="Login" />} />
-        <Route path="signup" element={<PlaceholderPage title="Sign Up" />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
+
+        {/* Pages that need a signed-in user */}
+        <Route element={<RequireAuth />}>
+          <Route path="profile" element={<ProfilePage />} />
+        </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
