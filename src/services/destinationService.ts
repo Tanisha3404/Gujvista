@@ -1,44 +1,50 @@
-import { categorySeed } from '../data/categories'
-import { destinationSeed } from '../data/destinations'
 import { distanceKm } from '../lib/geo'
-import { getGalleryImages, getImage } from '../lib/images'
+import { getStorageImageUrl } from '../lib/images'
+import { supabase } from '../lib/supabaseClient'
 import type { Category } from '../types/category'
 import type { Destination } from '../types/destination'
-import { simulateNetwork } from './simulateNetwork'
+import {
+  CATEGORY_COLUMNS,
+  DESTINATION_COLUMNS,
+  mapCategory,
+  mapDestination,
+  throwIfError,
+  type CategoryRow,
+  type DestinationRow,
+} from './mappers'
 
 const NEARBY_COUNT = 3
 
-// Seed rows store an image key. Turn it into a real URL.
-// In Phase 3 the Supabase version returns Storage URLs instead,
-// and nothing outside this file notices.
-function resolveImages(destination: Destination): Destination {
-  return { ...destination, mainImage: getImage(destination.mainImage) }
-}
-
 export async function getAllDestinations(): Promise<Destination[]> {
-  await simulateNetwork()
-  return destinationSeed.map(resolveImages)
+  const { data, error } = await supabase
+    .from('destinations')
+    .select(DESTINATION_COLUMNS)
+    .order('sort_order')
+    .order('name')
+  throwIfError(error)
+  return ((data ?? []) as DestinationRow[]).map(mapDestination)
 }
 
-// "Top" = the first N for now. A real "featured" flag can come with the database.
+// The homepage's "Top Destinations": featured places, in display order.
 export async function getTopDestinations(limit = 6): Promise<Destination[]> {
-  await simulateNetwork()
-  return destinationSeed.slice(0, limit).map(resolveImages)
+  const { data, error } = await supabase
+    .from('destinations')
+    .select(DESTINATION_COLUMNS)
+    .eq('is_featured', true)
+    .order('sort_order')
+    .limit(limit)
+  throwIfError(error)
+  return ((data ?? []) as DestinationRow[]).map(mapDestination)
 }
-
-// Local stand-in for a database flag. In Phase 3 this becomes a column or tag.
-const HIDDEN_GEM_SLUGS = [
-  'polo-forest',
-  'zarwani-waterfall',
-  'dholavira',
-  'velavadar-blackbuck-national-park',
-]
 
 export async function getHiddenGems(): Promise<Destination[]> {
-  await simulateNetwork()
-  return destinationSeed
-    .filter((destination) => HIDDEN_GEM_SLUGS.includes(destination.slug))
-    .map(resolveImages)
+  const { data, error } = await supabase
+    .from('destinations')
+    .select(DESTINATION_COLUMNS)
+    .eq('is_hidden_gem', true)
+    .order('sort_order')
+  throwIfError(error)
+  return ((data ?? []) as DestinationRow[]).map(mapDestination)
 }
 
 export interface DestinationDetails {
@@ -50,26 +56,45 @@ export interface DestinationDetails {
 
 // Returns null when no destination has that slug (the page shows "not found").
 export async function getDestinationDetails(slug: string): Promise<DestinationDetails | null> {
-  await simulateNetwork()
+  const { data: row, error } = await supabase
+    .from('destinations')
+    .select(DESTINATION_COLUMNS)
+    .eq('slug', slug)
+    .maybeSingle()
+  throwIfError(error)
+  if (!row) return null
 
-  const found = destinationSeed.find((destination) => destination.slug === slug)
-  if (!found) return null
+  const found = mapDestination(row as DestinationRow)
 
-  const category = categorySeed.find((item) => item.id === found.categoryId) ?? null
+  // The three follow-up queries run at the same time.
+  const [categoryResult, othersResult, galleryResult] = await Promise.all([
+    supabase.from('categories').select(CATEGORY_COLUMNS).eq('id', found.categoryId).maybeSingle(),
+    supabase.from('destinations').select(DESTINATION_COLUMNS).neq('id', found.id),
+    supabase
+      .from('destination_images')
+      .select('image_url')
+      .eq('destination_id', found.id)
+      .order('sort_order'),
+  ])
+  throwIfError(categoryResult.error)
+  throwIfError(othersResult.error)
+  throwIfError(galleryResult.error)
 
-  // Nearest others by straight-line distance. Only as accurate as the
-  // coordinates in the data, so verify those.
-  const nearby = destinationSeed
-    .filter((destination) => destination.id !== found.id)
+  // Nearest others by straight-line distance, worked out in the browser.
+  // Fine for ~20 places. Only as accurate as the coordinates in the data.
+  const nearby = ((othersResult.data ?? []) as DestinationRow[])
+    .map(mapDestination)
     .map((destination) => ({ destination, distance: distanceKm(found, destination) }))
     .sort((a, b) => a.distance - b.distance)
     .slice(0, NEARBY_COUNT)
-    .map((item) => resolveImages(item.destination))
+    .map((item) => item.destination)
 
   return {
-    destination: resolveImages(found),
-    category: category ? { ...category, image: getImage(category.image) } : null,
+    destination: found,
+    category: categoryResult.data ? mapCategory(categoryResult.data as CategoryRow) : null,
     nearby,
-    gallery: getGalleryImages(slug),
+    gallery: ((galleryResult.data ?? []) as { image_url: string }[]).map((image) =>
+      getStorageImageUrl(image.image_url),
+    ),
   }
 }

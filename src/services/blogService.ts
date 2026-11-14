@@ -1,30 +1,27 @@
-import { blogPostSeed } from '../data/blogPosts'
-import { getImage } from '../lib/images'
+import { supabase } from '../lib/supabaseClient'
 import type { BlogPost } from '../types/blogPost'
-import { simulateNetwork } from './simulateNetwork'
+import { BLOG_POST_COLUMNS, mapBlogPost, throwIfError, type BlogPostRow } from './mappers'
 
-function resolveImages(post: BlogPost): BlogPost {
-  return { ...post, coverImage: getImage(post.coverImage) }
-}
-
-// Only published posts are public. In Phase 3, Row Level Security
-// enforces the same rule inside the database.
-function isPublished(post: BlogPost): boolean {
-  return post.status === 'published'
-}
-
-// Newest first.
+// Newest first. Row Level Security already hides drafts from visitors;
+// the explicit filter keeps this correct for admins too.
 export async function getPublishedPosts(): Promise<BlogPost[]> {
-  await simulateNetwork()
-  return blogPostSeed
-    .filter(isPublished)
-    .sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
-    .map(resolveImages)
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select(BLOG_POST_COLUMNS)
+    .eq('status', 'published')
+    .order('published_at', { ascending: false })
+  throwIfError(error)
+  return ((data ?? []) as BlogPostRow[]).map(mapBlogPost)
 }
 
 // Returns null when there is no published post with that slug.
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
-  await simulateNetwork()
-  const found = blogPostSeed.find((post) => post.slug === slug && isPublished(post))
-  return found ? resolveImages(found) : null
+  const { data, error } = await supabase
+    .from('blog_posts')
+    .select(BLOG_POST_COLUMNS)
+    .eq('slug', slug)
+    .eq('status', 'published')
+    .maybeSingle()
+  throwIfError(error)
+  return data ? mapBlogPost(data as BlogPostRow) : null
 }
