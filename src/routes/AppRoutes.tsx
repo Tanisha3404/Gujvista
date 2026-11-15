@@ -7,13 +7,14 @@ import DestinationDetailsPage from '../pages/DestinationDetailsPage'
 import AboutPage from '../pages/AboutPage'
 import GuidesPage from '../pages/GuidesPage'
 import GuideDetailsPage from '../pages/GuideDetailsPage'
+import PlannerPage from '../pages/PlannerPage'
+import ItineraryDetailsPage from '../pages/ItineraryDetailsPage'
 import ContactPage from '../pages/ContactPage'
 import LoginPage from '../pages/LoginPage'
 import SignUpPage from '../pages/SignUpPage'
 import ProfilePage from '../pages/ProfilePage'
 import FavouritesPage from '../pages/FavouritesPage'
 import NotFoundPage from '../pages/NotFoundPage'
-import PlaceholderPage from '../pages/PlaceholderPage'
 
 export default function AppRoutes() {
   return (
@@ -25,7 +26,8 @@ export default function AppRoutes() {
         <Route path="about" element={<AboutPage />} />
         <Route path="guides" element={<GuidesPage />} />
         <Route path="guides/:slug" element={<GuideDetailsPage />} />
-        <Route path="planner" element={<PlaceholderPage title="Travel Planner" />} />
+        <Route path="planner" element={<PlannerPage />} />
+        <Route path="planner/:slug" element={<ItineraryDetailsPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignUpPage />} />

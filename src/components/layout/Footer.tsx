@@ -7,6 +7,7 @@ const usefulLinks = [
   { label: 'Travel Guides', to: '/guides' },
   { label: 'About', to: '/about' },
   { label: 'Contact & Feedback', to: '/contact' },
+  { label: 'Travel Planner', to: '/planner' },
 ]
 
 export default function Footer() {
