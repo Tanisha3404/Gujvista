@@ -7,6 +7,7 @@ import DestinationDetailsPage from '../pages/DestinationDetailsPage'
 import AboutPage from '../pages/AboutPage'
 import GuidesPage from '../pages/GuidesPage'
 import GuideDetailsPage from '../pages/GuideDetailsPage'
+import ContactPage from '../pages/ContactPage'
 import LoginPage from '../pages/LoginPage'
 import SignUpPage from '../pages/SignUpPage'
 import ProfilePage from '../pages/ProfilePage'
@@ -25,7 +26,7 @@ export default function AppRoutes() {
         <Route path="guides" element={<GuidesPage />} />
         <Route path="guides/:slug" element={<GuideDetailsPage />} />
         <Route path="planner" element={<PlaceholderPage title="Travel Planner" />} />
-        <Route path="contact" element={<PlaceholderPage title="Contact & Feedback" />} />
+        <Route path="contact" element={<ContactPage />} />
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignUpPage />} />
 

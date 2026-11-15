@@ -44,10 +44,14 @@ export default function Footer() {
               <MapPin size={16} className="text-accent" aria-hidden="true" />
               Gujarat, India
             </li>
-            <li className="flex items-center gap-2">
-              <Mail size={16} className="text-accent" aria-hidden="true" />
-              {/* Placeholder address. Replace with a real one. */}
-              hello@gujvista.example
+            <li>
+              <Link
+                to="/contact"
+                className="flex items-center gap-2 transition-colors hover:text-white"
+              >
+                <Mail size={16} className="text-accent" aria-hidden="true" />
+                Send us a message
+              </Link>
             </li>
           </ul>
           {/* Social links will be added once real accounts exist. */}
