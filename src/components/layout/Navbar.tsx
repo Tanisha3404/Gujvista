@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { Heart, Menu, User, X } from 'lucide-react'
+import { Heart, Menu, ShieldCheck, User, X } from 'lucide-react'
 import Container from '../ui/Container'
 import { Button, ButtonLink } from '../ui/Button'
 import { useAuth } from '../../hooks/useAuth'
@@ -17,7 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const closeMenu = () => setOpen(false)
-  const { user, profile, loading, signOut } = useAuth()
+  const { user, profile, isAdmin, loading, signOut } = useAuth()
   const { favouriteIds } = useFavourites()
   const navigate = useNavigate()
 
@@ -53,6 +53,15 @@ export default function Navbar() {
   } else if (user) {
     desktopAuth = (
       <>
+        {isAdmin && (
+          <Link
+            to="/admin"
+            className="flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-white"
+          >
+            <ShieldCheck size={18} aria-hidden="true" />
+            Admin
+          </Link>
+        )}
         <Link
           to="/favourites"
           aria-label={`Saved places (${favouriteIds.length})`}
@@ -97,6 +106,11 @@ export default function Navbar() {
   } else if (user) {
     mobileAuth = (
       <>
+        {isAdmin && (
+          <NavLink to="/admin" onClick={closeMenu} className={mobileLinkClass}>
+            Admin dashboard
+          </NavLink>
+        )}
         <NavLink to="/favourites" onClick={closeMenu} className={mobileLinkClass}>
           Saved places ({favouriteIds.length})
         </NavLink>

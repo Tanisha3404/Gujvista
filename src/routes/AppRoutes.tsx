@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../components/layout/Layout'
 import RequireAuth from '../components/auth/RequireAuth'
+import RequireAdmin from '../components/auth/RequireAdmin'
+import AdminLayout from '../components/admin/AdminLayout'
 import HomePage from '../pages/HomePage'
 import DestinationsPage from '../pages/DestinationsPage'
 import DestinationDetailsPage from '../pages/DestinationDetailsPage'
@@ -14,7 +16,9 @@ import LoginPage from '../pages/LoginPage'
 import SignUpPage from '../pages/SignUpPage'
 import ProfilePage from '../pages/ProfilePage'
 import FavouritesPage from '../pages/FavouritesPage'
+import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
 import NotFoundPage from '../pages/NotFoundPage'
+import PlaceholderPage from '../pages/PlaceholderPage'
 
 export default function AppRoutes() {
   return (
@@ -36,6 +40,17 @@ export default function AppRoutes() {
         <Route element={<RequireAuth />}>
           <Route path="profile" element={<ProfilePage />} />
           <Route path="favourites" element={<FavouritesPage />} />
+        </Route>
+
+        {/* Administrators only */}
+        <Route element={<RequireAdmin />}>
+          <Route path="admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboardPage />} />
+            <Route path="destinations" element={<PlaceholderPage title="Manage destinations" />} />
+            <Route path="categories" element={<PlaceholderPage title="Manage categories" />} />
+            <Route path="guides" element={<PlaceholderPage title="Manage guides" />} />
+            <Route path="feedback" element={<PlaceholderPage title="Feedback" />} />
+          </Route>
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
