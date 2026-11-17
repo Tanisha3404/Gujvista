@@ -17,6 +17,10 @@ import SignUpPage from '../pages/SignUpPage'
 import ProfilePage from '../pages/ProfilePage'
 import FavouritesPage from '../pages/FavouritesPage'
 import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
+import AdminDestinationsPage from '../pages/admin/AdminDestinationsPage'
+import AdminDestinationFormPage from '../pages/admin/AdminDestinationFormPage'
+import AdminCategoriesPage from '../pages/admin/AdminCategoriesPage'
+import AdminCategoryFormPage from '../pages/admin/AdminCategoryFormPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import PlaceholderPage from '../pages/PlaceholderPage'
 
@@ -46,8 +50,12 @@ export default function AppRoutes() {
         <Route element={<RequireAdmin />}>
           <Route path="admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboardPage />} />
-            <Route path="destinations" element={<PlaceholderPage title="Manage destinations" />} />
-            <Route path="categories" element={<PlaceholderPage title="Manage categories" />} />
+            <Route path="destinations" element={<AdminDestinationsPage />} />
+            <Route path="destinations/new" element={<AdminDestinationFormPage />} />
+            <Route path="destinations/:id/edit" element={<AdminDestinationFormPage />} />
+            <Route path="categories" element={<AdminCategoriesPage />} />
+            <Route path="categories/new" element={<AdminCategoryFormPage />} />
+            <Route path="categories/:id/edit" element={<AdminCategoryFormPage />} />
             <Route path="guides" element={<PlaceholderPage title="Manage guides" />} />
             <Route path="feedback" element={<PlaceholderPage title="Feedback" />} />
           </Route>
