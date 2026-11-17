@@ -21,6 +21,8 @@ import AdminDestinationsPage from '../pages/admin/AdminDestinationsPage'
 import AdminDestinationFormPage from '../pages/admin/AdminDestinationFormPage'
 import AdminCategoriesPage from '../pages/admin/AdminCategoriesPage'
 import AdminCategoryFormPage from '../pages/admin/AdminCategoryFormPage'
+import AdminPostsPage from '../pages/admin/AdminPostsPage'
+import AdminPostFormPage from '../pages/admin/AdminPostFormPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import PlaceholderPage from '../pages/PlaceholderPage'
 
@@ -56,7 +58,9 @@ export default function AppRoutes() {
             <Route path="categories" element={<AdminCategoriesPage />} />
             <Route path="categories/new" element={<AdminCategoryFormPage />} />
             <Route path="categories/:id/edit" element={<AdminCategoryFormPage />} />
-            <Route path="guides" element={<PlaceholderPage title="Manage guides" />} />
+            <Route path="guides" element={<AdminPostsPage />} />
+            <Route path="guides/new" element={<AdminPostFormPage />} />
+            <Route path="guides/:id/edit" element={<AdminPostFormPage />} />
             <Route path="feedback" element={<PlaceholderPage title="Feedback" />} />
           </Route>
         </Route>
