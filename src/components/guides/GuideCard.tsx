@@ -32,7 +32,7 @@ export default function GuideCard({ post }: { post: BlogPost }) {
         <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-ink/70">{post.excerpt}</p>
 
         <div className="mt-auto pt-5">
-          {/* The stretched link makes the whole card clickable. */}
+          {/* The stretched link makes the whole card clickable */}
           <ButtonLink
             to={`/guides/${post.slug}`}
             variant="outlineDark"

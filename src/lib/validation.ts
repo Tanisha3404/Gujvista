@@ -7,9 +7,7 @@ export const SUBJECT_MAX_LENGTH = 150
 export const MESSAGE_MIN_LENGTH = 10
 export const MESSAGE_MAX_LENGTH = 2000
 
-// These limits must match the CHECK constraints on the "feedback" table.
-// Each function returns an error message, or null when the value is fine.
-
+// returns an error message if the email is invalid or null if it is valid
 export function validateEmail(value: string): string | null {
   const email = value.trim()
   if (!email) return 'Enter your email address.'

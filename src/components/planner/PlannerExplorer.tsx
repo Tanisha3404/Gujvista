@@ -20,7 +20,6 @@ const selectClass =
 export default function PlannerExplorer({ itineraries, destinations }: PlannerExplorerProps) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  // Trip lengths that actually exist, shortest first.
   const durations = useMemo(
     () => [...new Set(itineraries.map((item) => item.durationDays))].sort((a, b) => a - b),
     [itineraries],
@@ -28,7 +27,7 @@ export default function PlannerExplorer({ itineraries, destinations }: PlannerEx
   const durationParam = Number(searchParams.get('duration'))
   const duration = durations.includes(durationParam) ? durationParam : 0 // 0 means "all"
 
-  // Only destinations that appear in at least one itinerary.
+  // only destinations that appear in at least one itinerary
   const destinationOptions = useMemo(() => {
     const used = new Set(itineraries.flatMap((item) => item.destinationIds))
     return destinations
@@ -47,7 +46,7 @@ export default function PlannerExplorer({ itineraries, destinations }: PlannerEx
 
   const hasActiveFilters = Boolean(duration || activeDestination)
 
-  // An empty value removes that param. "replace" keeps the history tidy.
+  // update the URL search params without reloading the page
   function updateParams(changes: Record<string, string>) {
     const next = new URLSearchParams(searchParams)
     for (const [key, value] of Object.entries(changes)) {

@@ -33,9 +33,7 @@ export default function DestinationCard({ destination }: DestinationCardProps) {
 
         {/* mt-auto pins the button to the bottom so every card lines up */}
         <div className="mt-auto pt-4">
-          {/* "after:absolute after:inset-0" stretches this link over the whole card,
-              so the entire card is clickable while keeping one real link for
-              keyboards and screen readers. */}
+          {/* "after:absolute after:inset-0" stretches this link over the whole card */}
           <ButtonLink
             to={`/destinations/${slug}`}
             variant="outlineDark"

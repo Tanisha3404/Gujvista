@@ -1,5 +1,4 @@
-# Resizes the oversized photos into a NEW folder called "resized-images".
-# Your originals are not changed.
+# resizes the oversized photos into a NEW folder called "resized-images"
 Add-Type -AssemblyName System.Drawing
 
 $sourceRoot = Join-Path (Get-Location) "src\assets\images"

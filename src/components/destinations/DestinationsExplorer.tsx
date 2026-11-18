@@ -21,7 +21,6 @@ interface DestinationsExplorerProps {
 export default function DestinationsExplorer({ destinations, categories }: DestinationsExplorerProps) {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  // Read filters from the URL. Unknown values (e.g. ?category=xyz) are ignored.
   const query = searchParams.get('q') ?? ''
   const activeCategory = categories.find((category) => category.slug === searchParams.get('category'))
   const categoryId = activeCategory?.id ?? ''
@@ -40,8 +39,7 @@ export default function DestinationsExplorer({ destinations, categories }: Desti
 
   const hasActiveFilters = Boolean(query || categoryId || district)
 
-  // Update some URL params at once. An empty value removes that param.
-  // "replace" stops every keystroke from adding a history entry.
+  // update the URL search params with the given changes; if a value is empty, remove that param from the URL
   function updateParams(changes: Record<string, string>) {
     const next = new URLSearchParams(searchParams)
     for (const [key, value] of Object.entries(changes)) {

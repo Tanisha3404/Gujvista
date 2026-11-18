@@ -5,8 +5,7 @@ import Skeleton from '../feedback/Skeleton'
 import EmptyState from '../feedback/EmptyState'
 import { useAuth } from '../../hooks/useAuth'
 
-// Wrap routes only administrators may open. This is a convenience for honest
-// users. The real protection is Row Level Security in the database.
+// a wrapper for admin pages that checks if the user is logged in and is an admin
 export default function RequireAdmin() {
   const { user, isAdmin, loading } = useAuth()
   const location = useLocation()

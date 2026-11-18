@@ -1,8 +1,7 @@
 import { resizeImageToJpeg } from '../lib/imageResize'
 import { supabase } from '../lib/supabaseClient'
 
-// Resizes a photo in the browser, uploads it to the public "images" bucket under a
-// unique name, and returns the storage path to save in the database row.
+
 export async function uploadSiteImage(
   file: File,
   folder: string,

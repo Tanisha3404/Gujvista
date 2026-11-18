@@ -1,6 +1,5 @@
 import type { AdminDestination, DestinationInput } from '../types/adminDestination'
 
-// What the form holds. Everything is text, because that is what inputs give us.
 export interface DestinationFormValues {
   name: string
   slug: string
@@ -13,8 +12,8 @@ export interface DestinationFormValues {
   longitude: string
   travelTips: string
   historicalSignificance: string
-  majorAttractions: string // one item per line
-  thingsToDo: string // one item per line
+  majorAttractions: string 
+  thingsToDo: string 
   isFeatured: boolean
   isHiddenGem: boolean
   sortOrder: string
@@ -24,7 +23,6 @@ export type DestinationFormErrors = Partial<Record<keyof DestinationFormValues |
 
 const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/
 
-// "Rani ki Vav!" becomes "rani-ki-vav".
 export function slugify(text: string): string {
   return text
     .toLowerCase()

@@ -1,7 +1,5 @@
 import type { Destination } from '../types/destination'
 
-// TEMPORARY seed data for Phases 1-2. It moves to supabase/seed.sql in Phase 3.
-// TODO: verify every fact and coordinate before publishing.
 export const destinationSeed: Destination[] = [
   {
     id: 'dest-1',
@@ -44,7 +42,7 @@ export const destinationSeed: Destination[] = [
       'The Rann of Kutch is a large seasonal salt marsh in the Kutch district that dries into a glittering white plain after the monsoon. Visitors come for its wide, open landscape, its sunsets, and the Rann Utsav, a winter cultural festival with local music, crafts and food.',
     mainImage: 'destinations/rann-of-kutch.jpg',
     bestTimeToVisit: 'November to February. The Rann is flooded during the monsoon.',
-    latitude: 23.83, // approximate, near Dhordo. VERIFY.
+    latitude: 23.83, 
     longitude: 69.68,
     travelTips:
       'Some areas close to the international border may need a permit, so check the current rules locally before you go. Carry sun protection and plenty of water, as there is little shade.',
@@ -94,7 +92,7 @@ export const destinationSeed: Destination[] = [
     id: 'dest-4',
     name: 'Gir National Park',
     slug: 'gir-national-park',
-    district: 'Gir Somnath', // The park spans more than one district. VERIFY what to show.
+    district: 'Gir Somnath',
     categoryId: 'cat-4',
     shortDescription:
       'The last natural home of the Asiatic lion, with dry forest and guided safaris.',
@@ -103,7 +101,7 @@ export const destinationSeed: Destination[] = [
     mainImage: 'destinations/gir-national-park.jpg',
     bestTimeToVisit:
       'December to March. The park is usually closed during the monsoon months, so check dates before you plan.',
-    latitude: 21.12, // approximate, near Sasan Gir. VERIFY.
+    latitude: 21.12,
     longitude: 70.8,
     travelTips:
       'Safaris usually need to be booked in advance through official channels, so check the current booking rules before you travel.',
@@ -191,7 +189,7 @@ export const destinationSeed: Destination[] = [
       'Polo Forest lies near Vijaynagar in the Sabarkantha district, along the Harnav river. Its dense woodland shelters clusters of centuries-old Jain and Hindu temples, which makes it a favourite for walking, photography and quiet getaways, especially after the monsoon.',
     mainImage: 'destinations/polo-forest.jpg',
     bestTimeToVisit: 'July to October, when the forest is green after the rains.',
-    latitude: 23.7, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 23.7, 
     longitude: 73.3,
     travelTips:
       'Wear sturdy walking shoes, as paths can be uneven and slippery after rain. Carry water and check local conditions before you go.',
@@ -219,7 +217,7 @@ export const destinationSeed: Destination[] = [
       'Zarwani Waterfall lies in the forested hills of the Narmada district. It is best seen during and just after the monsoon, when the water is flowing and the surrounding forest is at its greenest.',
     mainImage: 'destinations/zarwani-waterfall.jpg',
     bestTimeToVisit: 'July to October, during and just after the monsoon.',
-    latitude: 21.7, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 21.7, 
     longitude: 73.6,
     travelTips:
       'Rocks and paths near the water can be very slippery. Carry rain gear and take care, especially after heavy rain.',
@@ -248,7 +246,7 @@ export const destinationSeed: Destination[] = [
       'Dholavira is an archaeological site on Khadir island in the Rann of Kutch, holding the remains of a Harappan (Indus Valley) city. It was inscribed as a UNESCO World Heritage Site in 2021 and is known for its planned layout and its sophisticated system of water conservation.',
     mainImage: 'destinations/dholavira.jpg',
     bestTimeToVisit: 'November to February, when the weather is cooler and drier.',
-    latitude: 23.887, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 23.887, 
     longitude: 70.215,
     travelTips:
       'There is little shade, so carry sun protection and plenty of water. The area is remote, so check access and local conditions before you travel.',
@@ -278,7 +276,7 @@ export const destinationSeed: Destination[] = [
     mainImage: 'destinations/velavadar-blackbuck-national-park.jpg',
     bestTimeToVisit:
       'October to March. The park is generally closed during the monsoon, so check opening dates.',
-    latitude: 22.0, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 22.0, 
     longitude: 72.0,
     travelTips:
       'Visit early in the morning or late in the afternoon, when animals are most active. Check current entry and safari rules before you travel.',
@@ -307,7 +305,7 @@ export const destinationSeed: Destination[] = [
       'Dwarkadhish Temple stands in the coastal town of Dwarka and is dedicated to Lord Krishna, worshipped here as the king of Dwarka. It is counted among the Char Dham pilgrimage sites and is one of the most important Hindu pilgrimage centres in Gujarat.',
     mainImage: 'destinations/dwarkadhish-temple.jpg',
     bestTimeToVisit: 'October to March. Janmashtami is a major festival here and draws large crowds.',
-    latitude: 22.238, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 22.238, 
     longitude: 68.968,
     travelTips:
       'Dress modestly, and expect security checks and long queues during festivals. Check the official temple website for darshan timings.',
@@ -337,7 +335,7 @@ export const destinationSeed: Destination[] = [
       'The Champaner-Pavagadh Archaeological Park surrounds the hill of Pavagadh and the old city of Champaner, which was a capital of the Gujarat Sultanate in the 15th century. It brings together hill fortifications, palaces, mosques, step wells and temples, and it was inscribed as a UNESCO World Heritage Site in 2004.',
     mainImage: 'destinations/champaner-pavagadh.jpg',
     bestTimeToVisit: 'October to February, when the weather is cooler.',
-    latitude: 22.485, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 22.485, 
     longitude: 73.535,
     travelTips:
       'Expect a lot of walking and climbing on uneven ground. Carry water, and check whether the ropeway to the hilltop is operating.',
@@ -366,7 +364,7 @@ export const destinationSeed: Destination[] = [
       'The Sun Temple at Modhera was built in the early 11th century during the Chaulukya dynasty and is dedicated to the Sun God, Surya. It is known for its intricate stone carving and for the large stepped tank, the Surya Kund, in front of the main shrine. A dance festival is held here each January.',
     mainImage: 'destinations/modhera-sun-temple.jpg',
     bestTimeToVisit: 'October to March. Mornings give the best light for photographs.',
-    latitude: 23.583, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 23.583, 
     longitude: 72.133,
     travelTips:
       'There is little shade in the grounds, so bring sun protection and water. Check the current opening hours before you travel.',
@@ -397,7 +395,7 @@ export const destinationSeed: Destination[] = [
       'Laxmi Vilas Palace in Vadodara was built in the late 19th century for the Gaekwad rulers of Baroda, in the Indo-Saracenic style that blends Indian and European architecture. Set in large landscaped grounds, it remains the residence of the former royal family.',
     mainImage: 'destinations/laxmi-vilas-palace.jpg',
     bestTimeToVisit: 'October to March, when the weather is pleasant.',
-    latitude: 22.293, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 22.293, 
     longitude: 73.192,
     travelTips:
       'Parts of the complex are still a private residence, so check the current visiting arrangements before you go.',
@@ -426,7 +424,7 @@ export const destinationSeed: Destination[] = [
       'Mandvi Beach lies beside the historic port town of Mandvi on the Gulf of Kutch. The town is known for its traditional wooden shipbuilding yards, and the Vijay Vilas Palace is nearby, which makes the beach a good stop on a trip around Kutch.',
     mainImage: 'destinations/mandvi-beach.jpg',
     bestTimeToVisit: 'October to March, when the weather is cooler.',
-    latitude: 22.83, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 22.83, 
     longitude: 69.35,
     travelTips:
       'Swimming conditions change with the tides and currents, so follow local advice and any warning signs.',
@@ -456,7 +454,7 @@ export const destinationSeed: Destination[] = [
       "The historic walled city of Ahmedabad was founded in 1411 by Sultan Ahmed Shah and was inscribed as a UNESCO World Heritage City in 2017. It is known for its pols, the traditional clustered neighbourhoods, along with carved wooden havelis, mosques and temples that reflect the city's mixed heritage.",
     mainImage: 'destinations/ahmedabad-heritage-city.jpg',
     bestTimeToVisit: 'October to March, when walking around the old city is comfortable.',
-    latitude: 23.02, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 23.02, 
     longitude: 72.58,
     travelTips:
       'A guided heritage walk is a good way to explore the old city. Wear comfortable shoes and dress modestly at religious sites.',
@@ -488,7 +486,7 @@ export const destinationSeed: Destination[] = [
       'Shatrunjaya Hill, near the town of Palitana, is one of the most sacred pilgrimage sites for Jains. Hundreds of marble temples are clustered along its ridges, and pilgrims and visitors reach them by climbing thousands of stone steps.',
     mainImage: 'destinations/shatrunjaya-hill.jpg',
     bestTimeToVisit: 'October to March. Start the climb early in the morning to avoid the heat.',
-    latitude: 21.495, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 21.495, 
     longitude: 71.795,
     travelTips:
       'Carry water, wear comfortable footwear, and dress modestly. Rules about items such as leather apply at Jain temples, so check them locally.',
@@ -517,7 +515,7 @@ export const destinationSeed: Destination[] = [
       'The Marine National Park lies in the Gulf of Kutch off the coast of Jamnagar and protects a coastal and marine environment of coral reefs, mangroves, mudflats and islands. It was the first marine national park in India.',
     mainImage: 'destinations/marine-national-park.jpg',
     bestTimeToVisit: 'Winter months, October to February. Tides strongly affect what can be seen.',
-    latitude: 22.47, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 22.47, 
     longitude: 69.7,
     travelTips:
       'Visits, especially to the islands, usually need permission from the forest department. Check the rules and tide timings before you plan.',
@@ -547,7 +545,7 @@ export const destinationSeed: Destination[] = [
       'Uparkot Fort stands in the middle of the city of Junagadh and is one of the oldest forts in Gujarat. Inside its high walls are rock-cut Buddhist caves and ancient stepwells. The fort sits within a city that is also known for its mausoleums and for nearby Mount Girnar.',
     mainImage: 'destinations/junagadh-uparkot-fort.jpg',
     bestTimeToVisit: 'October to March, when the weather is cooler.',
-    latitude: 21.526, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 21.526, 
     longitude: 70.466,
     travelTips:
       'Plan for plenty of walking on uneven stone. Carry water and wear sturdy shoes.',
@@ -578,7 +576,7 @@ export const destinationSeed: Destination[] = [
       'Tithal Beach lies on the Arabian Sea coast near the city of Valsad. It is known for its dark sand and is a popular weekend spot for visitors from nearby towns.',
     mainImage: 'destinations/tithal-beach.jpg',
     bestTimeToVisit: 'October to February, when the weather is pleasant.',
-    latitude: 20.59, // APPROXIMATE. MUST VERIFY on OpenStreetMap.
+    latitude: 20.59, 
     longitude: 72.91,
     travelTips:
       'Currents can be strong, so follow warning signs and local advice before you swim.',

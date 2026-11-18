@@ -9,8 +9,7 @@ export interface AdminCounts {
   feedback: number
 }
 
-// Counts rows without downloading them. For "feedback" this only works for
-// admins, because Row Level Security hides it from everyone else.
+// counts rows without downloading them
 async function countRows(table: string, status?: string): Promise<number> {
   let query = supabase.from(table).select('*', { count: 'exact', head: true })
   if (status) query = query.eq('status', status)

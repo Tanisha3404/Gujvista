@@ -3,8 +3,7 @@ import Container from '../ui/Container'
 import Skeleton from '../feedback/Skeleton'
 import { useAuth } from '../../hooks/useAuth'
 
-// Wrap routes that need a signed-in user. Others are sent to /login and
-// returned to the page they wanted after logging in.
+// a wrapper for routes that require the user to be logged in. If the user is not logged in, they will be redirected to the login page
 export default function RequireAuth() {
   const { user, loading } = useAuth()
   const location = useLocation()

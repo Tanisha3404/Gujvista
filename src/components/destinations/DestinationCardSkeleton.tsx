@@ -1,6 +1,5 @@
 import Skeleton from '../feedback/Skeleton'
 
-// Same outer shape as DestinationCard, so the page doesn't jump when data arrives.
 export default function DestinationCardSkeleton() {
   return (
     <div className="overflow-hidden rounded-2xl border border-white/5 bg-surface">

@@ -1,5 +1,4 @@
-// A destination as the admin screens see it: the raw image path (not a URL),
-// plus the flags that control where it appears on the site.
+// A destination as the admin screens see it
 export interface AdminDestination {
   id: string
   name: string
@@ -8,7 +7,7 @@ export interface AdminDestination {
   categoryId: string
   shortDescription: string
   fullDescription: string
-  mainImagePath: string | null // e.g. "destinations/rani-ki-vav.jpg"
+  mainImagePath: string | null 
   bestTimeToVisit: string
   latitude: number
   longitude: number

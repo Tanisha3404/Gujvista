@@ -8,8 +8,7 @@ interface DestinationMapProps {
   longitude: number
 }
 
-// A simple gold dot. Leaflet's default pin image breaks under Vite bundling,
-// so we draw our own marker instead.
+// custom marker icon to match the design of the site
 const markerIcon = divIcon({
   className: '',
   html: '<span class="block h-6 w-6 rounded-full border-4 border-white bg-accent shadow-lg"></span>',
@@ -19,7 +18,9 @@ const markerIcon = divIcon({
 
 export default function DestinationMap({ name, latitude, longitude }: DestinationMapProps) {
   return (
-    // "isolate" stops Leaflet's high z-index values from drawing over the sticky navbar.
+    /* The map is wrapped in a div with a fixed height to ensure it displays correctly. 
+    The MapContainer component from react-leaflet is used to render the map, centered on the provided latitude and longitude. 
+    A TileLayer is added to display the map tiles from OpenStreetMap & a Marker is placed at the destination's coordinates with a custom icon */
     <div className="isolate h-80 overflow-hidden rounded-2xl border border-white/10 sm:h-96">
       <MapContainer
         center={[latitude, longitude]}

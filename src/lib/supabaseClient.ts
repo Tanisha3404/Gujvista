@@ -9,6 +9,4 @@ if (!supabaseUrl || !supabaseKey) {
   )
 }
 
-// Only the publishable key belongs in the browser. It is safe there because
-// Row Level Security (not the key) decides what each visitor can read or change.
 export const supabase = createClient(supabaseUrl, supabaseKey)

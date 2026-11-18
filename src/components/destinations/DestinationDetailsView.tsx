@@ -6,8 +6,9 @@ import Skeleton from '../feedback/Skeleton'
 import DestinationCard from './DestinationCard'
 import FavouriteButton from './FavouriteButton'
 import type { DestinationDetails } from '../../services/destinationService'
+import PageTitle from '../layout/PageTitle'
 
-// The map library is large, so load it only when this page is opened.
+// lazy load the map component to improve initial load performance
 const DestinationMap = lazy(() => import('./DestinationMap'))
 
 function InfoList({ id, title, items }: { id: string; title: string; items: string[] }) {
@@ -49,6 +50,7 @@ export default function DestinationDetailsView({ details }: { details: Destinati
 
   return (
     <article>
+      <PageTitle title={name} />
       <Container className="pt-8">
         <Link
           to="/destinations"
@@ -59,7 +61,7 @@ export default function DestinationDetailsView({ details }: { details: Destinati
         </Link>
       </Container>
 
-      {/* Hero photo with the title over a dark gradient */}
+      {/* hero photo with the title over a dark gradient */}
       <Container className="mt-6">
         <div className="relative overflow-hidden rounded-3xl">
           <img

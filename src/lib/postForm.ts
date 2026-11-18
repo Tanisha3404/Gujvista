@@ -32,14 +32,14 @@ export function valuesFromPost(post: AdminPost): PostFormValues {
   }
 }
 
-// "2026-02-31" matches the pattern but is not a real day, so check it properly.
+// returns true if the text is a valid date in YYYY-MM-DD format and represents a real date
 function isRealDate(text: string): boolean {
   if (!DATE_PATTERN.test(text)) return false
   const date = new Date(`${text}T00:00:00Z`)
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === text
 }
 
-// These limits match the CHECK constraints on the "blog_posts" table.
+// validates the form values and returns an object with error messages for any invalid fields
 export function validatePostForm(
   values: PostFormValues,
   options: { requireImage: boolean; hasImage: boolean },
@@ -78,7 +78,6 @@ export function validatePostForm(
 }
 
 export function toPostInput(values: PostFormValues, coverImagePath: string | null): PostInput {
-  // A published post must have a date. If it was left blank, use today.
   const today = new Date().toISOString().slice(0, 10)
   const publishedAt =
     values.status === 'published' && !values.publishedAt ? today : values.publishedAt

@@ -6,9 +6,9 @@ export interface AdminPost {
   slug: string
   excerpt: string
   content: string
-  coverImagePath: string | null // e.g. "guides/best-places-1731600000000.jpg"
+  coverImagePath: string | null 
   status: PostStatus
-  publishedAt: string // 'YYYY-MM-DD', or '' when there is no date yet
+  publishedAt: string // 'YYYY-MM-DD' format
 }
 
 export type PostInput = Omit<AdminPost, 'id'>

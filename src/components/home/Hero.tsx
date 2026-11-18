@@ -5,8 +5,7 @@ import HeroCollage from './HeroCollage'
 import { getImage } from '../../lib/images'
 import { cn } from '../../lib/utils'
 
-// Hero photos are fixed design assets, so they stay in the repo even after
-// destination photos move to Supabase Storage.
+// hero section of the home page, with a heading, subheading and a collage of images
 const heroImages = {
   door: getImage('hero/hero-door.jpg'),
   stepwell: getImage('hero/hero-stepwell.jpg'),
@@ -21,8 +20,8 @@ interface InlinePhotoProps {
   position?: string // which part of the photo stays visible, e.g. 'center 20%'
 }
 
-// A pill-shaped photo that sits inside the heading text.
-// Sizes use "em", so the pill scales with the heading font size.
+/* A pill-shaped photo that sits inside the heading text
+   Sizes use "em", so the pill scales with the heading font size */
 function InlinePhoto({ src, side, position = 'center' }: InlinePhotoProps) {
   return (
     <span

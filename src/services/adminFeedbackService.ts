@@ -7,7 +7,7 @@ export interface FeedbackMessage {
   email: string
   subject: string
   message: string
-  createdAt: string // ISO timestamp
+  createdAt: string
 }
 
 interface FeedbackRow {
@@ -19,8 +19,7 @@ interface FeedbackRow {
   created_at: string
 }
 
-// Only administrators can read this table (Row Level Security).
-// Newest first. Capped at 200 so the page stays quick if the inbox grows.
+// only admins can read this table
 export async function getFeedbackMessages(): Promise<FeedbackMessage[]> {
   const { data, error } = await supabase
     .from('feedback')

@@ -3,11 +3,11 @@ export type ArticleBlock =
   | { type: 'paragraph'; text: string }
   | { type: 'list'; items: string[] }
 
-// Article text format:
-//   - Blocks are separated by a blank line.
-//   - A block that starts with "## " is a heading.
-//   - A block where every line starts with "- " is a bulleted list.
-//   - Anything else is a paragraph.
+/* Article text format:
+- Blocks are separated by a blank line
+- A block that starts with "## " is a heading
+- A block where every line starts with "- " is a bulleted list
+- Anything else is a paragraph */
 export function parseArticleContent(content: string): ArticleBlock[] {
   return content
     .trim()
@@ -30,7 +30,7 @@ export function parseArticleContent(content: string): ArticleBlock[] {
     .filter((block): block is ArticleBlock => block !== null)
 }
 
-// About 200 words per minute, never less than 1.
+// about 200 words per minute
 export function readingTimeMinutes(content: string): number {
   const words = content.split(/\s+/).filter(Boolean).length
   return Math.max(1, Math.round(words / 200))

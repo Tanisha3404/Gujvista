@@ -1,30 +1,33 @@
+import { lazy } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from '../components/layout/Layout'
 import RequireAuth from '../components/auth/RequireAuth'
 import RequireAdmin from '../components/auth/RequireAdmin'
 import AdminLayout from '../components/admin/AdminLayout'
 import HomePage from '../pages/HomePage'
-import DestinationsPage from '../pages/DestinationsPage'
-import DestinationDetailsPage from '../pages/DestinationDetailsPage'
-import AboutPage from '../pages/AboutPage'
-import GuidesPage from '../pages/GuidesPage'
-import GuideDetailsPage from '../pages/GuideDetailsPage'
-import PlannerPage from '../pages/PlannerPage'
-import ItineraryDetailsPage from '../pages/ItineraryDetailsPage'
-import ContactPage from '../pages/ContactPage'
-import LoginPage from '../pages/LoginPage'
-import SignUpPage from '../pages/SignUpPage'
-import ProfilePage from '../pages/ProfilePage'
-import FavouritesPage from '../pages/FavouritesPage'
-import AdminDashboardPage from '../pages/admin/AdminDashboardPage'
-import AdminDestinationsPage from '../pages/admin/AdminDestinationsPage'
-import AdminDestinationFormPage from '../pages/admin/AdminDestinationFormPage'
-import AdminCategoriesPage from '../pages/admin/AdminCategoriesPage'
-import AdminCategoryFormPage from '../pages/admin/AdminCategoryFormPage'
-import AdminPostsPage from '../pages/admin/AdminPostsPage'
-import AdminPostFormPage from '../pages/admin/AdminPostFormPage'
-import AdminFeedbackPage from '../pages/admin/AdminFeedbackPage'
-import NotFoundPage from '../pages/NotFoundPage'
+
+const DestinationsPage = lazy(() => import('../pages/DestinationsPage'))
+const DestinationDetailsPage = lazy(() => import('../pages/DestinationDetailsPage'))
+const AboutPage = lazy(() => import('../pages/AboutPage'))
+const GuidesPage = lazy(() => import('../pages/GuidesPage'))
+const GuideDetailsPage = lazy(() => import('../pages/GuideDetailsPage'))
+const PlannerPage = lazy(() => import('../pages/PlannerPage'))
+const ItineraryDetailsPage = lazy(() => import('../pages/ItineraryDetailsPage'))
+const ContactPage = lazy(() => import('../pages/ContactPage'))
+const LoginPage = lazy(() => import('../pages/LoginPage'))
+const SignUpPage = lazy(() => import('../pages/SignUpPage'))
+const ProfilePage = lazy(() => import('../pages/ProfilePage'))
+const FavouritesPage = lazy(() => import('../pages/FavouritesPage'))
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'))
+
+const AdminDashboardPage = lazy(() => import('../pages/admin/AdminDashboardPage'))
+const AdminDestinationsPage = lazy(() => import('../pages/admin/AdminDestinationsPage'))
+const AdminDestinationFormPage = lazy(() => import('../pages/admin/AdminDestinationFormPage'))
+const AdminCategoriesPage = lazy(() => import('../pages/admin/AdminCategoriesPage'))
+const AdminCategoryFormPage = lazy(() => import('../pages/admin/AdminCategoryFormPage'))
+const AdminPostsPage = lazy(() => import('../pages/admin/AdminPostsPage'))
+const AdminPostFormPage = lazy(() => import('../pages/admin/AdminPostFormPage'))
+const AdminFeedbackPage = lazy(() => import('../pages/admin/AdminFeedbackPage'))
 
 export default function AppRoutes() {
   return (

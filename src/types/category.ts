@@ -1,6 +1,6 @@
 export interface Category {
   id: string
-  slug: string // used in URLs and filters, e.g. /destinations?category=beaches
+  slug: string // used in URLs and filters
   name: string
   description: string
   image: string

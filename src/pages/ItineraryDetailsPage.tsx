@@ -9,6 +9,7 @@ import EmptyState from '../components/feedback/EmptyState'
 import { useAsync } from '../hooks/useAsync'
 import { getItineraryDetails } from '../services/plannerService'
 import { formatDuration, groupStopsByDay } from '../lib/itinerary'
+import PageTitle from '../components/layout/PageTitle'
 
 function ItinerarySkeleton() {
   return (
@@ -63,6 +64,7 @@ function ItineraryLoader({ slug }: { slug: string }) {
 
   return (
     <article>
+      <PageTitle title={itinerary.title} />
       <Container className="py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
           <Link
@@ -160,7 +162,5 @@ function ItineraryLoader({ slug }: { slug: string }) {
 
 export default function ItineraryDetailsPage() {
   const { slug = '' } = useParams()
-
-  // key={slug} remounts the loader when the slug changes, so loading shows again.
   return <ItineraryLoader key={slug} slug={slug} />
 }

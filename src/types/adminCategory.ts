@@ -3,9 +3,9 @@ export interface AdminCategory {
   name: string
   slug: string
   description: string
-  imagePath: string | null // e.g. "categories/beaches-1731600000000.jpg"
+  imagePath: string | null 
   sortOrder: number
-  destinationCount: number // how many destinations use this category
+  destinationCount: number 
 }
 
 export type CategoryInput = Omit<AdminCategory, 'id' | 'destinationCount'>

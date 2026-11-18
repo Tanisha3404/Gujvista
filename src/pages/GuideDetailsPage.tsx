@@ -10,6 +10,7 @@ import ArticleBody from '../components/guides/ArticleBody'
 import { useAsync } from '../hooks/useAsync'
 import { getPostBySlug } from '../services/blogService'
 import { formatPublishedDate, readingTimeMinutes } from '../lib/articleContent'
+import PageTitle from '../components/layout/PageTitle'
 
 function ArticleSkeleton() {
   return (
@@ -61,6 +62,7 @@ function GuideLoader({ slug }: { slug: string }) {
 
   return (
     <article>
+      <PageTitle title={post.title} />
       <Container className="py-10 sm:py-12">
         <div className="mx-auto max-w-3xl">
           <Link
@@ -113,6 +115,6 @@ function GuideLoader({ slug }: { slug: string }) {
 export default function GuideDetailsPage() {
   const { slug = '' } = useParams()
 
-  // key={slug} remounts the loader when the slug changes, so loading shows again.
+  // TODO: handle the case where slug is empty or invalid
   return <GuideLoader key={slug} slug={slug} />
 }

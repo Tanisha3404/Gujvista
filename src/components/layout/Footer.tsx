@@ -55,7 +55,6 @@ export default function Footer() {
               </Link>
             </li>
           </ul>
-          {/* Social links will be added once real accounts exist. */}
         </div>
       </Container>
 

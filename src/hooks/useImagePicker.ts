@@ -3,13 +3,11 @@ import { useCallback, useEffect, useState, type ChangeEvent } from 'react'
 export const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const MAX_UPLOAD_BYTES = 15 * 1024 * 1024
 
-// Holds the photo the admin picked, a temporary preview of it, and any problem with it.
 export function useImagePicker() {
   const [file, setFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  // Free the temporary preview URL when it is replaced or the form closes.
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl)

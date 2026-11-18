@@ -12,7 +12,7 @@ export interface AuthContextValue {
   user: User | null
   profile: Profile | null
   isAdmin: boolean
-  // True until we know whether someone is signed in (and have loaded their profile).
+  // True until we know whether someone is signed in
   loading: boolean
   signUp: (
     fullName: string,

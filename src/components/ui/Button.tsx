@@ -30,7 +30,7 @@ interface CommonProps {
   children: ReactNode
 }
 
-// A real <button> for actions (submit, save, etc.)
+// a standard HTML <button> with the same styling as the <ButtonLink> below
 export function Button({
   variant = 'primary',
   size = 'md',
@@ -46,7 +46,7 @@ export function Button({
   )
 }
 
-// A router <Link> that looks like a button, for navigation.
+// a router <Link> that looks like a button used for navigation
 export function ButtonLink({
   variant = 'primary',
   size = 'md',

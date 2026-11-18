@@ -5,7 +5,7 @@ type Point = Pick<Destination, 'latitude' | 'longitude'>
 const EARTH_RADIUS_KM = 6371
 const toRadians = (degrees: number) => (degrees * Math.PI) / 180
 
-// Great-circle ("haversine") distance between two points, in kilometres.
+// returns the distance in kilometers between two points on the Earth using the Haversine formula
 export function distanceKm(a: Point, b: Point): number {
   const dLat = toRadians(b.latitude - a.latitude)
   const dLon = toRadians(b.longitude - a.longitude)

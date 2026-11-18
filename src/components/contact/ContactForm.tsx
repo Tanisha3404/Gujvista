@@ -27,7 +27,7 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
   const [email, setEmail] = useState(initialEmail)
   const [subject, setSubject] = useState('')
   const [message, setMessage] = useState('')
-  const [honeypot, setHoneypot] = useState('') // real visitors never see or fill this
+  const [honeypot, setHoneypot] = useState('') 
   const [errors, setErrors] = useState<FieldErrors>({})
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
@@ -36,7 +36,6 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    // A bot filled the hidden field. Pretend it worked and send nothing.
     if (honeypot) {
       setSent(true)
       return

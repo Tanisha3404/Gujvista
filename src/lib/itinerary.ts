@@ -4,7 +4,7 @@ export function formatDuration(days: number): string {
   return days === 1 ? '1 day' : `${days} days`
 }
 
-// Groups stops by day, with days and stops in order.
+// groups stops by day, with days and stops in order
 export function groupStopsByDay(stops: ItineraryStop[]): { day: number; stops: ItineraryStop[] }[] {
   const days = new Map<number, ItineraryStop[]>()
   for (const stop of stops) {

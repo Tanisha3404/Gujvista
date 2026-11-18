@@ -10,8 +10,8 @@ export interface FeatureImage {
 interface AboutFeatureProps {
   eyebrow: string
   title: string
-  images: FeatureImage[] // one image, or two shown side by side
-  reverse?: boolean // put the photos on the left on desktop
+  images: FeatureImage[] 
+  reverse?: boolean 
   children: ReactNode
 }
 

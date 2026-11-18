@@ -13,7 +13,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [sessionReady, setSessionReady] = useState(false)
   const [profileState, setProfileState] = useState<ProfileState | null>(null)
 
-  // Fires once at start (restoring a saved session), then on every sign-in/out.
+  // Load the current session 
   useEffect(() => {
     const { data } = supabase.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession)
@@ -25,7 +25,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const user = session?.user ?? null
   const userId = user?.id ?? null
 
-  // Load the signed-in user's profile (name and role).
+  // Load the profile for the current user
   useEffect(() => {
     if (!userId) return
     let ignore = false
@@ -69,7 +69,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signOut = useCallback(async () => {
-    const { error } = await supabase.auth.signOut({ scope: 'local' }) // this device only
+    const { error } = await supabase.auth.signOut({ scope: 'local' }) 
     if (error) throw new Error(error.message)
   }, [])
 

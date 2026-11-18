@@ -1,5 +1,4 @@
-// Scales an image down to at most `maxWidth` pixels wide and returns a JPEG.
-// Runs in the browser, so the admin can upload a large photo straight from a camera.
+// resize an image file to a JPEG with a maximum width and quality
 export async function resizeImageToJpeg(file: File, maxWidth = 1600, quality = 0.8): Promise<Blob> {
   const bitmap = await createImageBitmap(file)
   const scale = Math.min(1, maxWidth / bitmap.width)
@@ -12,7 +11,7 @@ export async function resizeImageToJpeg(file: File, maxWidth = 1600, quality = 0
   const context = canvas.getContext('2d')
   if (!context) throw new Error('Your browser could not process the image.')
 
-  // PNGs can be transparent. JPEG cannot, so paint a white background first.
+  // fill the canvas with white before drawing the image, to avoid black background for transparent images
   context.fillStyle = '#ffffff'
   context.fillRect(0, 0, width, height)
   context.drawImage(bitmap, 0, 0, width, height)

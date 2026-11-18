@@ -2,8 +2,7 @@ import { supabase } from '../lib/supabaseClient'
 import type { BlogPost } from '../types/blogPost'
 import { BLOG_POST_COLUMNS, mapBlogPost, throwIfError, type BlogPostRow } from './mappers'
 
-// Newest first. Row Level Security already hides drafts from visitors;
-// the explicit filter keeps this correct for admins too.
+// newest first post
 export async function getPublishedPosts(): Promise<BlogPost[]> {
   const { data, error } = await supabase
     .from('blog_posts')
@@ -14,7 +13,7 @@ export async function getPublishedPosts(): Promise<BlogPost[]> {
   return ((data ?? []) as BlogPostRow[]).map(mapBlogPost)
 }
 
-// Returns null when there is no published post with that slug.
+// returns null when there is no published post 
 export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   const { data, error } = await supabase
     .from('blog_posts')

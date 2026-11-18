@@ -1,7 +1,3 @@
--- GujVista schema. Run in the Supabase SQL Editor (file 1 of 2).
--- Security (grants and Row Level Security) is in file 2.
-
--- Keeps updated_at current whenever a row changes.
 create or replace function public.set_updated_at()
 returns trigger
 language plpgsql
@@ -13,21 +9,17 @@ begin
 end;
 $$;
 
--- ---------------------------------------------------------------
 -- categories
--- ---------------------------------------------------------------
 create table public.categories (
   id uuid primary key default gen_random_uuid(),
   name text not null unique check (char_length(name) between 1 and 100),
   slug text not null unique check (slug ~ '^[a-z0-9]+(-[a-z0-9]+)*$'),
   description text not null default '',
-  image text, -- storage path (e.g. destinations/rani-ki-vav.jpg)
+  image text, 
   created_at timestamptz not null default now()
 );
 
--- ---------------------------------------------------------------
 -- destinations
--- ---------------------------------------------------------------
 create table public.destinations (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(name) between 1 and 150),
@@ -36,7 +28,7 @@ create table public.destinations (
   category_id uuid not null references public.categories (id) on delete restrict,
   short_description text not null,
   full_description text not null,
-  main_image text, -- storage path
+  main_image text, 
   best_time_to_visit text not null,
   latitude double precision not null check (latitude between -90 and 90),
   longitude double precision not null check (longitude between -180 and 180),
@@ -57,9 +49,7 @@ create trigger destinations_set_updated_at
   before update on public.destinations
   for each row execute function public.set_updated_at();
 
--- ---------------------------------------------------------------
--- destination_images (extra gallery photos)
--- ---------------------------------------------------------------
+-- destination_images
 create table public.destination_images (
   id uuid primary key default gen_random_uuid(),
   destination_id uuid not null references public.destinations (id) on delete cascade,
@@ -71,9 +61,7 @@ create table public.destination_images (
 
 create index destination_images_destination_id_idx on public.destination_images (destination_id);
 
--- ---------------------------------------------------------------
--- profiles (one row per signed-up user)
--- ---------------------------------------------------------------
+-- profiles
 create table public.profiles (
   id uuid primary key references auth.users (id) on delete cascade,
   full_name text check (char_length(full_name) <= 100),
@@ -87,8 +75,6 @@ create trigger profiles_set_updated_at
   before update on public.profiles
   for each row execute function public.set_updated_at();
 
--- Creates the profile automatically when someone signs up.
--- The role is always 'user' here. It is never read from user-supplied data.
 create or replace function public.handle_new_user()
 returns trigger
 language plpgsql
@@ -109,9 +95,7 @@ create trigger on_auth_user_created
   after insert on auth.users
   for each row execute function public.handle_new_user();
 
--- ---------------------------------------------------------------
 -- favourites
--- ---------------------------------------------------------------
 create table public.favourites (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references public.profiles (id) on delete cascade,
@@ -122,9 +106,7 @@ create table public.favourites (
 
 create index favourites_destination_id_idx on public.favourites (destination_id);
 
--- ---------------------------------------------------------------
 -- itineraries and their stops
--- ---------------------------------------------------------------
 create table public.itineraries (
   id uuid primary key default gen_random_uuid(),
   title text not null check (char_length(title) between 1 and 150),
@@ -146,9 +128,7 @@ create table public.itinerary_items (
 
 create index itinerary_items_destination_id_idx on public.itinerary_items (destination_id);
 
--- ---------------------------------------------------------------
 -- blog_posts (travel guides)
--- ---------------------------------------------------------------
 create table public.blog_posts (
   id uuid primary key default gen_random_uuid(),
   title text not null check (char_length(title) between 1 and 200),
@@ -170,10 +150,7 @@ create trigger blog_posts_set_updated_at
   before update on public.blog_posts
   for each row execute function public.set_updated_at();
 
--- ---------------------------------------------------------------
 -- feedback (contact form submissions)
--- Limits here must match the validation in the form.
--- ---------------------------------------------------------------
 create table public.feedback (
   id uuid primary key default gen_random_uuid(),
   name text not null check (char_length(name) between 1 and 100),

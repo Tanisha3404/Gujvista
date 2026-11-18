@@ -1,4 +1,3 @@
-// Turns Supabase's technical messages into friendly ones.
 export function friendlyAuthError(message: string): string {
   const text = message.toLowerCase()
   if (text.includes('invalid login credentials')) return 'Incorrect email or password.'
@@ -14,6 +13,6 @@ export function friendlyAuthError(message: string): string {
   if (text.includes('rate limit') || text.includes('too many')) {
     return 'Too many attempts. Please wait a few minutes and try again.'
   }
-  if (text.includes('password')) return message // e.g. "Password should be at least 8 characters."
+  if (text.includes('password')) return message // e.g. "password should be at least 8 characters"
   return 'Something went wrong. Please try again.'
 }

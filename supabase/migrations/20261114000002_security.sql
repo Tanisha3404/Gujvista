@@ -1,8 +1,3 @@
--- GujVista security: grants and Row Level Security (file 2 of 2).
-
--- Is the signed-in user an admin?
--- SECURITY DEFINER lets it read profiles without triggering the profiles
--- policies again (which would loop). It only ever returns true or false.
 create or replace function public.is_admin()
 returns boolean
 language sql
@@ -20,17 +15,13 @@ $$;
 revoke execute on function public.is_admin() from public;
 grant execute on function public.is_admin() to anon, authenticated;
 
--- ---------------------------------------------------------------
--- Start from nothing, then grant only what each role needs.
--- (This makes the result the same whatever the project's defaults were.)
--- ---------------------------------------------------------------
 revoke all on table
   public.categories, public.destinations, public.destination_images,
   public.profiles, public.favourites, public.itineraries,
   public.itinerary_items, public.blog_posts, public.feedback
 from anon, authenticated;
 
--- Public content: anyone can read. Only admins can write (enforced by RLS below).
+-- Public content: anyone can read
 grant select on table
   public.categories, public.destinations, public.destination_images,
   public.itineraries, public.itinerary_items, public.blog_posts
@@ -41,21 +32,17 @@ grant insert, update, delete on table
   public.itineraries, public.itinerary_items, public.blog_posts
 to authenticated;
 
--- Profiles: users read their own row and may change ONLY name and avatar.
--- There is no permission to write the "role" column, so nobody can promote themselves.
+-- Profiles
 grant select on table public.profiles to authenticated;
 grant update (full_name, avatar_url) on table public.profiles to authenticated;
 
--- Favourites: signed-in users manage their own.
+-- Favourites: signed-in users manage their own
 grant select, insert, delete on table public.favourites to authenticated;
 
--- Feedback: anyone can submit. Only admins can read or delete.
+-- Feedback: anyone can submit; only admins can read or delete.
 grant insert on table public.feedback to anon, authenticated;
 grant select, delete on table public.feedback to authenticated;
 
--- ---------------------------------------------------------------
--- Turn on Row Level Security everywhere
--- ---------------------------------------------------------------
 alter table public.categories enable row level security;
 alter table public.destinations enable row level security;
 alter table public.destination_images enable row level security;
@@ -66,9 +53,7 @@ alter table public.itinerary_items enable row level security;
 alter table public.blog_posts enable row level security;
 alter table public.feedback enable row level security;
 
--- ---------------------------------------------------------------
--- Public content: everyone reads, admins write
--- ---------------------------------------------------------------
+-- Public content
 create policy "Anyone can read categories" on public.categories
   for select to anon, authenticated using (true);
 create policy "Admins manage categories" on public.categories
@@ -99,9 +84,7 @@ create policy "Admins manage itinerary items" on public.itinerary_items
   for all to authenticated
   using ((select public.is_admin())) with check ((select public.is_admin()));
 
--- ---------------------------------------------------------------
--- Blog posts: public sees published only. Admins see and manage everything.
--- ---------------------------------------------------------------
+-- Blog posts: public sees published only; admins see and manage everything
 create policy "Anyone can read published posts" on public.blog_posts
   for select to anon, authenticated
   using (status = 'published' or (select public.is_admin()));
@@ -109,9 +92,7 @@ create policy "Admins manage posts" on public.blog_posts
   for all to authenticated
   using ((select public.is_admin())) with check ((select public.is_admin()));
 
--- ---------------------------------------------------------------
--- Profiles: own row only (admins can read all)
--- ---------------------------------------------------------------
+-- Profiles
 create policy "Users read own profile" on public.profiles
   for select to authenticated
   using ((select auth.uid()) = id);
@@ -123,9 +104,7 @@ create policy "Users update own profile" on public.profiles
   using ((select auth.uid()) = id)
   with check ((select auth.uid()) = id);
 
--- ---------------------------------------------------------------
--- Favourites: strictly your own
--- ---------------------------------------------------------------
+-- Favourites
 create policy "Users read own favourites" on public.favourites
   for select to authenticated
   using ((select auth.uid()) = user_id);
@@ -136,10 +115,7 @@ create policy "Users remove own favourites" on public.favourites
   for delete to authenticated
   using ((select auth.uid()) = user_id);
 
--- ---------------------------------------------------------------
 -- Feedback: anyone may submit, only admins may read or delete
--- ---------------------------------------------------------------
--- "with check (true)" is intentional: the table's CHECK constraints do the validation.
 create policy "Anyone can submit feedback" on public.feedback
   for insert to anon, authenticated
   with check (true);

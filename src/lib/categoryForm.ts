@@ -24,7 +24,7 @@ export function valuesFromCategory(category: AdminCategory): CategoryFormValues 
   }
 }
 
-// These limits match the CHECK constraints on the "categories" table.
+// these limits match the CHECK constraints on the "categories" table
 export function validateCategoryForm(
   values: CategoryFormValues,
   options: { requireImage: boolean; hasImage: boolean },

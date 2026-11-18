@@ -6,7 +6,7 @@ import AuthProvider from './context/AuthProvider'
 import FavouritesProvider from './context/FavouritesProvider'
 import './index.css'
 
-// BASE_URL is '/' in dev and '/gujvista/' in the production build (see vite.config.ts).
+// BASE_URL is '/' in dev and '/gujvista/' in the production build (see vite.config.ts)
 const basename = import.meta.env.BASE_URL.replace(/\/$/, '')
 
 createRoot(document.getElementById('root')!).render(

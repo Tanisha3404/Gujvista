@@ -40,7 +40,7 @@ export async function getAdminDestinations(): Promise<AdminDestination[]> {
   return ((data ?? []) as AdminDestinationRow[]).map(mapAdminDestination)
 }
 
-// Returns null when there is no destination with that id.
+// returns null when there is no destination with that id
 export async function getAdminDestination(id: string): Promise<AdminDestination | null> {
   const { data, error } = await supabase
     .from('destinations')
@@ -58,8 +58,7 @@ export class DuplicateSlugError extends Error {
   }
 }
 
-// Creates a destination, or updates it when an id is given.
-// Row Level Security makes the database refuse this for anyone who is not an admin.
+// creates a destination or updates it when an id is given
 export async function saveDestination(input: DestinationInput, id?: string): Promise<void> {
   const row = {
     name: input.name,
@@ -85,20 +84,18 @@ export async function saveDestination(input: DestinationInput, id?: string): Pro
     ? await supabase.from('destinations').update(row).eq('id', id)
     : await supabase.from('destinations').insert(row)
 
-  // 23505 = unique violation (the slug is already taken).
+  // 23505 = unique violation 
   if (error?.code === '23505') throw new DuplicateSlugError()
   throwIfError(error)
 }
 
-// Deleting a destination also removes it from users' saved places and from
-// itineraries (their foreign keys cascade). Its photo file stays in Storage.
+// deletes a destination; row level security makes the database refuse this for anyone who is not an admin
 export async function deleteDestination(id: string): Promise<void> {
   const { error } = await supabase.from('destinations').delete().eq('id', id)
   throwIfError(error)
 }
 
-// Resizes the photo in the browser, uploads it under a unique name, and returns
-// the storage path to save in the destination row.
+// resizes the photo in the browser, uploads it under a unique name
 export async function uploadDestinationImage(file: File, slug: string): Promise<string> {
   const blob = await resizeImageToJpeg(file)
   const path = `destinations/${slug}-${Date.now()}.jpg`

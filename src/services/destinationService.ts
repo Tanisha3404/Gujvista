@@ -25,7 +25,7 @@ export async function getAllDestinations(): Promise<Destination[]> {
   return ((data ?? []) as DestinationRow[]).map(mapDestination)
 }
 
-// The homepage's "Top Destinations": featured places, in display order.
+// the homepage's "Top Destinations": featured places
 export async function getTopDestinations(limit = 6): Promise<Destination[]> {
   const { data, error } = await supabase
     .from('destinations')
@@ -51,10 +51,10 @@ export interface DestinationDetails {
   destination: Destination
   category: Category | null
   nearby: Destination[]
-  gallery: string[] // extra photo URLs (may be empty)
+  gallery: string[] 
 }
 
-// Returns null when no destination has that slug (the page shows "not found").
+// returns null when no destination
 export async function getDestinationDetails(slug: string): Promise<DestinationDetails | null> {
   const { data: row, error } = await supabase
     .from('destinations')
@@ -66,7 +66,7 @@ export async function getDestinationDetails(slug: string): Promise<DestinationDe
 
   const found = mapDestination(row as DestinationRow)
 
-  // The three follow-up queries run at the same time.
+  // the three follow-up queries run at the same time
   const [categoryResult, othersResult, galleryResult] = await Promise.all([
     supabase.from('categories').select(CATEGORY_COLUMNS).eq('id', found.categoryId).maybeSingle(),
     supabase.from('destinations').select(DESTINATION_COLUMNS).neq('id', found.id),
@@ -80,8 +80,7 @@ export async function getDestinationDetails(slug: string): Promise<DestinationDe
   throwIfError(othersResult.error)
   throwIfError(galleryResult.error)
 
-  // Nearest others by straight-line distance, worked out in the browser.
-  // Fine for ~20 places. Only as accurate as the coordinates in the data.
+  // shows nearby destinations sorted by distance
   const nearby = ((othersResult.data ?? []) as DestinationRow[])
     .map(mapDestination)
     .map((destination) => ({ destination, distance: distanceKm(found, destination) }))

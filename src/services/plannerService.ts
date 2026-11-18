@@ -38,7 +38,7 @@ function mapItinerary(row: ItineraryRow): Itinerary {
   }
 }
 
-// Shortest trips first, then alphabetical.
+// shortest trips first, then alphabetical
 export async function getItineraries(): Promise<ItinerarySummary[]> {
   const { data, error } = await supabase
     .from('itineraries')
@@ -57,7 +57,7 @@ export async function getItineraries(): Promise<ItinerarySummary[]> {
   }))
 }
 
-// Returns null when no itinerary has that slug (the page shows "not found").
+// returns null when no itinerary
 export async function getItineraryDetails(slug: string): Promise<ItineraryDetails | null> {
   const { data: row, error } = await supabase
     .from('itineraries')

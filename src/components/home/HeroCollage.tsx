@@ -6,7 +6,7 @@ interface HeroCollageProps {
   beach: string
 }
 
-// Tall and narrow (set with aspect-ratio) plus fully rounded ends = a capsule.
+// a single capsule-shaped photo; the aspect ratio is controlled by the parent container
 function Capsule({ src, className }: { src: string; className?: string }) {
   return (
     <div className={cn('shrink-0 overflow-hidden rounded-full', className)}>

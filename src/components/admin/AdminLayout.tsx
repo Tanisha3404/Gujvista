@@ -1,5 +1,7 @@
+import { Suspense } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import Container from '../ui/Container'
+import Skeleton from '../feedback/Skeleton'
 import { cn } from '../../lib/utils'
 
 const adminLinks = [
@@ -10,7 +12,7 @@ const adminLinks = [
   { label: 'Feedback', to: '/admin/feedback', end: false },
 ]
 
-// Shared frame for every admin page: a title, a row of tabs, then the page.
+// AdminLayout component is used for all admin pages, provides a consistent layout with a header and navigation links for the admin section
 export default function AdminLayout() {
   return (
     <>
@@ -40,7 +42,9 @@ export default function AdminLayout() {
       </section>
 
       <Container className="py-10">
-        <Outlet />
+        <Suspense fallback={<Skeleton className="h-64" />}>
+          <Outlet />
+        </Suspense>
       </Container>
     </>
   )

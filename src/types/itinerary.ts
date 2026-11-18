@@ -9,7 +9,7 @@ export interface Itinerary {
   coverImage: string
 }
 
-// Used on the planner list: also knows which destinations each trip includes.
+// an itinerary as it appears in the admin screens, with the raw image path
 export interface ItinerarySummary extends Itinerary {
   destinationIds: string[]
 }

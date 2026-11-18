@@ -1,21 +1,20 @@
-// Generates supabase/seed.sql from the local seed data in src/data.
-// Run from the project root:  npx tsx scripts/generateSeed.ts
+// This script generates a SQL file that can be run in the Supabase SQL Editor to seed the database with categories, destinations & blog posts
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { blogPostSeed } from '../src/data/blogPosts'
 import { categorySeed } from '../src/data/categories'
 import { destinationSeed } from '../src/data/destinations'
 
-// Same list the local service used for the "Hidden Gems" section.
+// the first six destinations are the homepage's "Top Destinations"
 const HIDDEN_GEM_SLUGS = [
   'polo-forest',
   'zarwani-waterfall',
   'dholavira',
   'velavadar-blackbuck-national-park',
 ]
-// The first six destinations are the homepage's "Top Destinations".
+// the first six destinations are the homepage's "Top Destinations"
 const FEATURED_COUNT = 6
 
-// Turn values into safe SQL text (single quotes are doubled).
+// helper functions to generate SQL values
 const str = (value: string): string => `'${value.replace(/'/g, "''")}'`
 const strOrNull = (value: string | null | undefined): string => (value ? str(value) : 'null')
 const textArray = (items: string[] | undefined): string =>

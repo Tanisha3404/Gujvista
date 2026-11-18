@@ -40,7 +40,7 @@ export default function CategoryForm({ category }: { category?: AdminCategory })
     setValues((previous) => ({
       ...previous,
       name,
-      // For a new category, build the web address from the name until it is edited by hand.
+      // only update the slug if the user hasn't edited it manually
       slug: isEditing || slugEdited ? previous.slug : slugify(name),
     }))
   }
@@ -63,7 +63,7 @@ export default function CategoryForm({ category }: { category?: AdminCategory })
     try {
       let imagePath = category?.imagePath ?? null
       if (picker.file) {
-        // Category tiles are shown fairly small, so 1200 px wide is plenty.
+        // upload the new image to storage and get its path
         imagePath = await uploadSiteImage(picker.file, 'categories', values.slug.trim(), 1200)
       }
 

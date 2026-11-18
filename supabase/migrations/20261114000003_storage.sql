@@ -1,6 +1,4 @@
--- Public bucket for site images.
--- Anyone can view files by URL. Only admins can add, change or remove them.
--- Files over 2 MB, or that are not JPEG/PNG/WebP, are rejected.
+-- create a bucket for storing images
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values ('images', 'images', true, 2097152, array['image/jpeg', 'image/png', 'image/webp'])
 on conflict (id) do update set
@@ -8,8 +6,7 @@ on conflict (id) do update set
   file_size_limit = excluded.file_size_limit,
   allowed_mime_types = excluded.allowed_mime_types;
 
--- No SELECT policy on purpose: public URLs work without one, and
--- leaving it out stops visitors from listing everything in the bucket.
+-- admin policies for image management
 create policy "Admins upload images" on storage.objects
   for insert to authenticated
   with check (bucket_id = 'images' and (select public.is_admin()));

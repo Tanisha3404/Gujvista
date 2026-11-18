@@ -46,7 +46,7 @@ function FormLoader({ id }: { id?: string }) {
     )
   }
 
-  // Editing an id that does not exist
+  // if id is present but the category was not found, show an empty state
   if (id && state.data === null) {
     return (
       <div>
@@ -74,6 +74,6 @@ function FormLoader({ id }: { id?: string }) {
 export default function AdminCategoryFormPage() {
   const { id } = useParams()
 
-  // key remounts the loader when you move between "new" and an existing id.
+  // if id is present, fetch the category and show the form; if not, show the form for a new category
   return <FormLoader key={id ?? 'new'} id={id} />
 }

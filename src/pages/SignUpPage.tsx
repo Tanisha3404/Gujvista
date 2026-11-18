@@ -28,7 +28,7 @@ export default function SignUpPage() {
   const [submitting, setSubmitting] = useState(false)
   const [confirmationSent, setConfirmationSent] = useState(false)
 
-  // Signed in (for example right after signing up when confirmation is off).
+  // redirect to home if the user is already logged in
   if (!loading && user) return <Navigate to="/" replace />
 
   if (confirmationSent) {
@@ -60,7 +60,7 @@ export default function SignUpPage() {
     try {
       const result = await signUp(fullName.trim(), email.trim(), password)
       if (result.needsEmailConfirmation) setConfirmationSent(true)
-      // Otherwise the user is signed in and this page redirects by itself.
+      // on success the provider updates "user" and this page redirects by itself
     } catch (error) {
       console.error(error)
       setFormError(friendlyAuthError(error instanceof Error ? error.message : ''))

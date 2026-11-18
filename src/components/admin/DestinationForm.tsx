@@ -50,7 +50,7 @@ export default function DestinationForm({ categories, destination }: Destination
   const [formError, setFormError] = useState<string | null>(null)
   const [saving, setSaving] = useState(false)
 
-  // Free the temporary preview URL when it is replaced or the form closes.
+  // clean up the preview URL when a new file is selected
   useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl)
@@ -65,7 +65,7 @@ export default function DestinationForm({ categories, destination }: Destination
     setValues((previous) => ({
       ...previous,
       name,
-      // For a new destination, build the web address from the name until it is edited by hand.
+      // only update the slug if the user hasn't edited it manually
       slug: isEditing || slugEdited ? previous.slug : slugify(name),
     }))
   }

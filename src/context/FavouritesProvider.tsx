@@ -15,7 +15,7 @@ export default function FavouritesProvider({ children }: { children: ReactNode }
   const userId = user?.id ?? null
   const [state, setState] = useState<FavouritesState | null>(null)
 
-  // Load this user's saved places whenever someone signs in.
+  // Load this user's saved places whenever someone signs in
   useEffect(() => {
     if (!userId) return
     let ignore = false
@@ -49,7 +49,7 @@ export default function FavouritesProvider({ children }: { children: ReactNode }
       const wasSaved = favouriteIds.includes(destinationId)
       const apply = (ids: string[]) => setState({ userId, ids })
 
-      // Update the screen immediately, then save. Roll back if saving fails.
+      // Update the screen immediately, then save
       apply(
         wasSaved
           ? favouriteIds.filter((id) => id !== destinationId)

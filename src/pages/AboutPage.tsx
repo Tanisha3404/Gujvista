@@ -5,8 +5,7 @@ import { ButtonLink } from '../components/ui/Button'
 import AboutFeature from '../components/about/AboutFeature'
 import { getImage } from '../lib/images'
 
-// TODO: verify every statement on this page before publishing.
-// IMPORTANT: change each `alt` to describe what the photo actually shows.
+// images for the About page
 const photos = {
   heritage: getImage('destinations/rani-ki-vav.jpg'),
   navratri: getImage('culture/festival-navratri-garba.jpg'),
@@ -54,7 +53,7 @@ export default function AboutPage() {
             description="GujVista is a tourism and destination discovery platform focused on Gujarat, India. It brings famous landmarks and lesser-known places together in one place, with clear information and photographs for each destination, so you can decide where to go and what to expect."
           />
 
-          {/* Decorative photo, shown on large screens only */}
+          {/* decorative photo shown on large screens only */}
           <img
             src={photos.aboutHero}
             alt=""

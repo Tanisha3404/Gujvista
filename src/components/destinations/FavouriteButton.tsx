@@ -8,7 +8,7 @@ import { cn } from '../../lib/utils'
 interface FavouriteButtonProps {
   destinationId: string
   destinationName: string
-  // "overlay" is a round icon on a card photo. "inline" is a labelled button.
+  // "overlay" is a round icon on a card photo; "inline" is a labelled button
   variant?: 'overlay' | 'inline'
 }
 
@@ -30,7 +30,7 @@ export default function FavouriteButton({
     : `Save ${destinationName} to saved places`
 
   async function handleClick() {
-    // Logged-out visitors go to Login and come back to this page afterwards.
+    // logged-out visitors go to Login and come back to this page afterwards
     if (!user) {
       navigate('/login', { state: { from: location.pathname + location.search } })
       return

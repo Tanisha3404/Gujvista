@@ -8,7 +8,7 @@ interface AuthCardProps {
   children: ReactNode
 }
 
-// The centred card used by the Login, Sign Up and Profile pages.
+// a centred card used by the Login, Sign Up and Profile pages
 export default function AuthCard({ title, description, footer, children }: AuthCardProps) {
   return (
     <section className="bg-stars py-14 sm:py-20">

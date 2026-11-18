@@ -92,7 +92,7 @@ export default function AdminFeedbackPage() {
                     </summary>
 
                     <div className="border-t border-white/10 p-5">
-                      {/* React shows this as plain text, so nothing inside it can run. */}
+                      {/* React shows this as plain text, so nothing inside it can run */}
                       <p className="whitespace-pre-wrap break-words leading-relaxed text-white/85">
                         {item.message}
                       </p>
@@ -118,7 +118,7 @@ export default function AdminFeedbackPage() {
                           </>
                         ) : (
                           <>
-                            {/* The address is URL-encoded so it cannot add extra recipients. */}
+                            {/* The address is URL-encoded so it cannot add extra recipients */}
                             <a
                               href={`mailto:${encodeURIComponent(item.email)}?subject=${encodeURIComponent(`Re: ${item.subject}`)}`}
                               className="inline-flex items-center gap-1.5 rounded-full border border-white/20 px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"

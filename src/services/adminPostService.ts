@@ -28,8 +28,7 @@ function mapAdminPost(row: AdminPostRow): AdminPost {
   }
 }
 
-// Admins see drafts too (Row Level Security only hides them from everyone else).
-// Most recently edited first.
+// admins see drafts too 
 export async function getAdminPosts(): Promise<AdminPost[]> {
   const { data, error } = await supabase
     .from('blog_posts')
@@ -39,7 +38,7 @@ export async function getAdminPosts(): Promise<AdminPost[]> {
   return ((data ?? []) as AdminPostRow[]).map(mapAdminPost)
 }
 
-// Returns null when there is no post with that id.
+// returns null when there is no post with that id
 export async function getAdminPost(id: string): Promise<AdminPost | null> {
   const { data, error } = await supabase.from('blog_posts').select(COLUMNS).eq('id', id).maybeSingle()
   throwIfError(error)
@@ -53,7 +52,7 @@ export class DuplicatePostSlugError extends Error {
   }
 }
 
-// Creates a guide, or updates it when an id is given.
+// creates a guide or updates it when an id is given
 export async function savePost(input: PostInput, id?: string): Promise<void> {
   const row = {
     title: input.title,
@@ -69,7 +68,7 @@ export async function savePost(input: PostInput, id?: string): Promise<void> {
     ? await supabase.from('blog_posts').update(row).eq('id', id)
     : await supabase.from('blog_posts').insert(row)
 
-  // 23505 = unique violation (the slug is already taken).
+  // 23505 = unique violation
   if (error?.code === '23505') throw new DuplicatePostSlugError()
   throwIfError(error)
 }

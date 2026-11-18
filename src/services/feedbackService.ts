@@ -7,8 +7,6 @@ export interface FeedbackInput {
   message: string
 }
 
-// Visitors may insert but not read, so this deliberately does NOT ask for the
-// saved row back (no .select()). That is also why it works for anonymous users.
 export async function submitFeedback(input: FeedbackInput): Promise<void> {
   const { error } = await supabase.from('feedback').insert({
     name: input.name.trim(),

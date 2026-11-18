@@ -46,7 +46,7 @@ export default function Navbar() {
       isActive ? 'bg-white/10 text-white' : 'text-white/60 hover:text-white',
     )
 
-  // Right-hand side of the desktop bar
+  // right-hand side of the desktop bar
   let desktopAuth
   if (loading) {
     desktopAuth = <div aria-hidden="true" className="h-10 w-40" /> // keeps the layout steady
@@ -99,7 +99,7 @@ export default function Navbar() {
     )
   }
 
-  // Bottom of the mobile menu
+  // bottom of the mobile menu
   let mobileAuth
   if (loading) {
     mobileAuth = null

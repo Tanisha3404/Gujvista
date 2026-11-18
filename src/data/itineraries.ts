@@ -1,7 +1,3 @@
-// TEMPORARY source for the planner seed. scripts/generatePlannerSeed.ts turns this
-// into supabase/seed_planner.sql. Edit here, regenerate, and re-run the SQL.
-// TODO: verify every route, activity and seasonal note before publishing.
-
 export interface ItineraryStopSeed {
   destinationSlug: string
   day: number
@@ -19,7 +15,7 @@ export interface ItinerarySeed {
 }
 
 export const itinerarySeed: ItinerarySeed[] = [
-  // ---------------------------------------------------------------- 1 day
+  // 1 day trip
   {
     slug: 'modhera-and-patan-day-trip',
     title: 'Modhera and Patan Day Trip',
@@ -69,7 +65,7 @@ export const itinerarySeed: ItinerarySeed[] = [
     ],
   },
 
-  // --------------------------------------------------------------- 2 days
+  // 2 days trip
   {
     slug: 'gir-and-somnath-weekend',
     title: 'Gir and Somnath Weekend',
@@ -119,7 +115,7 @@ export const itinerarySeed: ItinerarySeed[] = [
     ],
   },
 
-  // --------------------------------------------------------------- 3 days
+  // 3 days trip
   {
     slug: 'junagadh-gir-and-somnath',
     title: 'Junagadh, Gir and Somnath',
@@ -196,7 +192,7 @@ export const itinerarySeed: ItinerarySeed[] = [
     ],
   },
 
-  // --------------------------------------------------------------- 5 days
+  // 5 days trip
   {
     slug: 'saurashtra-and-the-coast',
     title: 'Saurashtra and the Coast',

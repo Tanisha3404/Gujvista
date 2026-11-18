@@ -19,7 +19,6 @@ export default function LoginPage() {
   const [formError, setFormError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
 
-  // Already signed in (or just signed in): leave this page.
   if (!loading && user) return <Navigate to={from} replace />
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -34,7 +33,7 @@ export default function LoginPage() {
     setSubmitting(true)
     try {
       await signIn(email.trim(), password)
-      // On success the provider updates "user" and this page redirects by itself.
+      // on success the provider updates "user"
     } catch (error) {
       console.error(error)
       setFormError(friendlyAuthError(error instanceof Error ? error.message : ''))

@@ -1,5 +1,4 @@
-// Generates supabase/seed_planner.sql from src/data/itineraries.ts.
-// Run from the project root:  npx tsx scripts/generatePlannerSeed.ts
+// This script generates a SQL file that can be run in the Supabase SQL Editor to seed the itineraries and their stops
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { destinationSeed } from '../src/data/destinations'
 import { itinerarySeed } from '../src/data/itineraries'

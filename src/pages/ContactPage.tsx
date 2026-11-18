@@ -56,8 +56,6 @@ export default function ContactPage() {
                 <Skeleton className="h-96" />
               </div>
             ) : (
-              // key remounts the form when someone signs in or out, so the
-              // name and email are prefilled correctly.
               <ContactForm
                 key={user?.id ?? 'guest'}
                 initialName={profile?.full_name ?? ''}

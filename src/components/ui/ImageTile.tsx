@@ -6,7 +6,7 @@ interface ImageTileProps {
   image: string
   title: string
   subtitle?: string
-  className?: string // set the shape here, e.g. "aspect-[4/3]"
+  className?: string 
 }
 
 export default function ImageTile({ to, image, title, subtitle, className }: ImageTileProps) {
@@ -19,7 +19,7 @@ export default function ImageTile({ to, image, title, subtitle, className }: Ima
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      {/* Dark gradient keeps the white text readable on any photo */}
+      {/* dark gradient keeps the white text readable on any photo */}
       <div
         aria-hidden="true"
         className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent"

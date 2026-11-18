@@ -1,6 +1,5 @@
 import type { Category } from '../types/category'
 
-// `image` is a key for src/assets/images (resolved by the service).
 export const categorySeed: Category[] = [
   {
     id: 'cat-1',

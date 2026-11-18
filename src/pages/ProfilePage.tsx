@@ -16,7 +16,7 @@ export default function ProfilePage() {
   const [saved, setSaved] = useState(false)
   const [saving, setSaving] = useState(false)
 
-  if (!user) return null // RequireAuth guarantees a user; this keeps TypeScript happy.
+  if (!user) return null // should never happen, but just in case
 
   async function handleSave(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

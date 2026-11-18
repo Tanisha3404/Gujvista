@@ -1,7 +1,6 @@
 import type { BlogPost } from '../types/blogPost'
 
-// TEMPORARY seed data. It moves to supabase/seed.sql in Phase 3.
-// TODO: verify every statement before publishing.
+// this is a seed of blog posts for the demo site
 export const blogPostSeed: BlogPost[] = [
   {
     id: 'post-1',

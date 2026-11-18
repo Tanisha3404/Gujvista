@@ -53,7 +53,7 @@ function FormLoader({ id }: { id?: string }) {
     )
   }
 
-  // Editing an id that does not exist
+  // if id is present but the destination was not found, show an empty state
   if (id && destination.state.data === null) {
     return (
       <div>
@@ -84,6 +84,6 @@ function FormLoader({ id }: { id?: string }) {
 export default function AdminDestinationFormPage() {
   const { id } = useParams()
 
-  // key remounts the loader when you move between "new" and an existing id.
+  // if id is present, we are editing an existing destination; if not, we are creating a new one
   return <FormLoader key={id ?? 'new'} id={id} />
 }

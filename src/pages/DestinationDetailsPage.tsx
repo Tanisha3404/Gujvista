@@ -33,7 +33,7 @@ function DetailsSkeleton() {
 }
 
 function DestinationDetailsLoader({ slug }: { slug: string }) {
-  // useCallback keeps the same function between renders (see the note in useAsync).
+  // useCallback keeps the same function between renders
   const fetcher = useCallback(() => getDestinationDetails(slug), [slug])
   const { state, retry } = useAsync(fetcher)
 
@@ -64,8 +64,5 @@ function DestinationDetailsLoader({ slug }: { slug: string }) {
 
 export default function DestinationDetailsPage() {
   const { slug = '' } = useParams()
-
-  // key={slug} remounts the loader when you move between destinations
-  // (for example from a "nearby" card), so the loading state shows again.
   return <DestinationDetailsLoader key={slug} slug={slug} />
 }
