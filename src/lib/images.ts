@@ -1,6 +1,7 @@
 import { supabase } from './supabaseClient'
 
-const modules = import.meta.glob<string>('../assets/images/**/*.{jpg,jpeg,png,webp}', {
+// Load all images from the assets/design folder and its subfolders
+const modules = import.meta.glob<string>('../assets/design/**/*.{jpg,jpeg,png,webp}', {
   eager: true,
   query: '?url',
   import: 'default',
@@ -8,7 +9,7 @@ const modules = import.meta.glob<string>('../assets/images/**/*.{jpg,jpeg,png,we
 
 const imageUrls: Record<string, string> = {}
 for (const [path, url] of Object.entries(modules)) {
-  imageUrls[path.replace('../assets/images/', '')] = url
+  imageUrls[path.replace('../assets/design/', '')] = url
 }
 
 // a plain dark rectangle shown when an image is missing
@@ -19,7 +20,7 @@ export function getImage(key: string): string {
   return imageUrls[key] ?? FALLBACK_IMAGE
 }
 
-// returns a public URL for an image stored in Supabase Storage or a fallback image if the path is null or undefined
+// returns a public URL for an image stored in Supabase storage or a fallback image if the path is null or undefined
 export function getStorageImageUrl(path: string | null | undefined): string {
   if (!path) return FALLBACK_IMAGE
   return supabase.storage.from('images').getPublicUrl(path).data.publicUrl
