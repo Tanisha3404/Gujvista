@@ -7,6 +7,14 @@ export interface FeedbackInput {
   message: string
 }
 
+export class FeedbackRateLimitError extends Error {
+  constructor() {
+    super('You have sent several messages recently. Please wait a while before sending another.')
+    this.name = 'FeedbackRateLimitError'
+  }
+}
+
+// Submit feedback to the Supabase database
 export async function submitFeedback(input: FeedbackInput): Promise<void> {
   const { error } = await supabase.from('feedback').insert({
     name: input.name.trim(),
@@ -14,5 +22,10 @@ export async function submitFeedback(input: FeedbackInput): Promise<void> {
     subject: input.subject.trim(),
     message: input.message.trim(),
   })
-  if (error) throw new Error(error.message)
+
+  if (error) {
+    // If the error message contains "Too many messages", throw a FeedbackRateLimitError
+    if (error.message.includes('Too many messages')) throw new FeedbackRateLimitError()
+    throw new Error(error.message)
+  }
 }

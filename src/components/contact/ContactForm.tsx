@@ -3,7 +3,7 @@ import { Check } from 'lucide-react'
 import FormField from '../ui/FormField'
 import FormTextarea from '../ui/FormTextarea'
 import { Button } from '../ui/Button'
-import { submitFeedback } from '../../services/feedbackService'
+import { FeedbackRateLimitError, submitFeedback } from '../../services/feedbackService'
 import {
   EMAIL_MAX_LENGTH,
   MESSAGE_MAX_LENGTH,
@@ -55,12 +55,15 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
     try {
       await submitFeedback({ name, email, subject, message })
       setSent(true)
-    } catch (error) {
+        } catch (error) {
       console.error(error)
-      setFormError("We couldn't send your message. Please check your connection and try again.")
+      setFormError(
+        error instanceof FeedbackRateLimitError
+          ? error.message
+          : "We couldn't send your message. Please check your connection and try again.",
+      )
     } finally {
-      setSubmitting(false)
-    }
+  }
   }
 
   function writeAnother() {
