@@ -33,9 +33,10 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
   const [submitting, setSubmitting] = useState(false)
   const [sent, setSent] = useState(false)
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
+    // A bot filled the hidden field
     if (honeypot) {
       setSent(true)
       return
@@ -55,7 +56,7 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
     try {
       await submitFeedback({ name, email, subject, message })
       setSent(true)
-        } catch (error) {
+    } catch (error) {
       console.error(error)
       setFormError(
         error instanceof FeedbackRateLimitError
@@ -63,7 +64,8 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
           : "We couldn't send your message. Please check your connection and try again.",
       )
     } finally {
-  }
+      setSubmitting(false)
+    }
   }
 
   function writeAnother() {
@@ -138,7 +140,7 @@ export default function ContactForm({ initialName, initialEmail }: ContactFormPr
         error={errors.message}
       />
 
-      {/* Honeypot: hidden from people, but bots tend to fill every field. */}
+      {/* Honeypot: hidden from people, but bots tend to fill every field */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
         <label>
           Leave this field empty
